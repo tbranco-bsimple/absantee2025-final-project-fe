@@ -1,0 +1,40 @@
+@if (userDetails){
+<div class="user-details">
+    @if (!isEditing){
+    <div>
+        <p><strong>ID:</strong> {{ userDetails.id }}</p>
+        <p><strong>First Name:</strong> {{ userDetails.names }}</p>
+        <p><strong>Last Name:</strong> {{ userDetails.surnames }}</p>
+        <p><strong>Email:</strong> {{ userDetails.email }}</p>
+        <p><strong>Start Date:</strong> {{ userDetails.periodDateTime._initDate | date: 'yyyy-MM-dd' }}</p>
+        <p><strong>End Date:</strong> {{ userDetails.periodDateTime._endDate | date: 'yyyy-MM-dd' }}</p>
+        <button (click)="edit()">Edit</button>
+    </div>
+    }
+    @else{
+    <div>
+        <label>
+            First Name:
+            <input [(ngModel)]="userDetails.names" />
+        </label>
+        <label>
+            Last Name:
+            <input [(ngModel)]="userDetails.surnames" />
+        </label>
+        <label>
+            Email:
+            <input [(ngModel)]="userDetails.email" />
+        </label>
+        <label>
+            Start Date:
+            <input type="date" [(ngModel)]="userDetails.periodDateTime._initDate" />
+        </label>
+        <label>
+            End Date:
+            <input type="date" [(ngModel)]="userDetails.periodDateTime._endDate" />
+        </label>
+        <button (click)="onEdit(userDetails)">Confirm</button>
+    </div>
+    }
+</div>
+}
