@@ -1,0 +1,47 @@
+.project-details {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.project-details p {
+    margin: 0.5rem 0;
+    color: #333;
+    font-size: 1rem;
+}
+
+.project-details label {
+    display: block;
+    margin: 0.5rem 0 0.3rem;
+    font-weight: bold;
+    color: #444;
+}
+
+.project-details input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.project-details button {
+    margin-top: 1.5rem;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.project-details button:hover {
+    background-color: #0056b3;
+}

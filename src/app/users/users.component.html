@@ -1,12 +1,12 @@
 <h1 class="title">Users</h1>
 
 <ul class="user-list">
-    <li *ngFor="let user of users" (click)="onUserSelect(user)">
+    <li *ngFor="let user of users" (click)="handleUserSelected(user)">
         <div class="user-card">
             <p><strong>Name:</strong> {{ user.names }} {{ user.surnames }}</p>
             <p><strong>Email:</strong> {{ user.email }}</p>
             <p><strong>Start Date:</strong> {{ user.periodDateTime._initDate | date: 'yyyy-MM-dd' }}</p>
-            <p><strong>End Date:</strong> {{ user.periodDateTime._endDate | date: 'yyyy-MM-dd' }}</p>
+            <p><strong>End Date:</strong> {{ user.periodDateTime._finalDate | date: 'yyyy-MM-dd' }}</p>
         </div>
     </li>
 </ul>

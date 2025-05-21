@@ -1,6 +1,19 @@
-<app-users [users]="usersList" (selectedUserEvent)="onUserSelect($event)"></app-users>
+<div class="button-container">
+    <button class="primary-button" (click)="getUsers()">Users</button>
+    <button class="primary-button" (click)="getProjects()">Project</button>
+</div>
 
-@if (selectedUser){
+@if (activeTab === 'users') {
+<app-users [users]="usersList" (selectedUserEvent)="onUserSelect($event)">
+</app-users>
+@if (selectedUser) {
 <app-user-details [userDetails]="selectedUser" (userUpdated)="onUserUpdated($event)">
 </app-user-details>
+}
+}
+
+@if (activeTab === 'projects') {
+<app-projects></app-projects>
+<app-project-table></app-project-table>
+<app-project-details></app-project-details>
 }

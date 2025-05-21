@@ -1,0 +1,12 @@
+<h1 class="title">Projects</h1>
+
+<ul class="project-list">
+    <li *ngFor="let project of projects()" (click)="handleProjectSelected(project)">
+        <div class="project-card">
+            <p><strong>Title:</strong> {{ project.title }} </p>
+            <p><strong>Acronym:</strong> {{ project.acronym }}</p>
+            <p><strong>Start Date:</strong> {{ project.periodDate.initDate | date: 'yyyy-MM-dd' }}</p>
+            <p><strong>End Date:</strong> {{ project.periodDate.finalDate | date: 'yyyy-MM-dd' }}</p>
+        </div>
+    </li>
+</ul>

@@ -7,7 +7,7 @@
         <p><strong>Last Name:</strong> {{ userDetails.surnames }}</p>
         <p><strong>Email:</strong> {{ userDetails.email }}</p>
         <p><strong>Start Date:</strong> {{ userDetails.periodDateTime._initDate | date: 'yyyy-MM-dd' }}</p>
-        <p><strong>End Date:</strong> {{ userDetails.periodDateTime._endDate | date: 'yyyy-MM-dd' }}</p>
+        <p><strong>End Date:</strong> {{ userDetails.periodDateTime._finalDate | date: 'yyyy-MM-dd' }}</p>
         <button (click)="edit()">Edit</button>
     </div>
     }
@@ -31,10 +31,12 @@
         </label>
         <label>
             End Date:
-            <input type="date" [(ngModel)]="userDetails.periodDateTime._endDate" />
+            <input type="date" [(ngModel)]="userDetails.periodDateTime._finalDate" />
         </label>
         <button (click)="onEdit(userDetails)">Confirm</button>
     </div>
     }
 </div>
+} @else {
+<p>No user selected</p>
 }

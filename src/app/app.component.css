@@ -1,0 +1,22 @@
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.primary-button {
+    padding: 1rem 2rem;
+    font-size: 1.25rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+
+.primary-button:hover {
+    background-color: #0056b3;
+}

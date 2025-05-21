@@ -1,0 +1,20 @@
+<h1 class="title">Projects</h1>
+
+<table class="project-table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Acronym</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let project of projects()" (click)="handleProjectSelected(project)">
+            <td>{{ project.title }}</td>
+            <td>{{ project.acronym }}</td>
+            <td>{{ project.periodDate.initDate | date: 'yyyy-MM-dd' }}</td>
+            <td>{{ project.periodDate.finalDate | date: 'yyyy-MM-dd' }}</td>
+        </tr>
+    </tbody>
+</table>

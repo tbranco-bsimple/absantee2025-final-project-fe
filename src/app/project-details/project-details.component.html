@@ -1,0 +1,36 @@
+@if (projectDetails()){
+<div class="project-details">
+    @if (!isEditing){
+    <div>
+        <p><strong>ID:</strong> {{ projectDetails()!.id }}</p>
+        <p><strong>Title:</strong> {{ projectDetails()!.title }}</p>
+        <p><strong>Acronym:</strong> {{ projectDetails()!.acronym }}</p>
+        <p><strong>Start Date:</strong> {{ projectDetails()!.periodDate.initDate | date:'yyyy-MM-dd' }}</p>
+        <p><strong>End Date:</strong> {{ projectDetails()!.periodDate.finalDate | date:'yyyy-MM-dd' }}</p>
+        <button (click)="edit()">Edit</button>
+    </div>
+    } @else {
+    <div>
+        <label>
+            Title:
+            <input [(ngModel)]="localProject!.title" />
+        </label>
+        <label>
+            Acronym:
+            <input [(ngModel)]="localProject!.acronym" />
+        </label>
+        <label>
+            Start Date:
+            <input type="date" [(ngModel)]="localProject!.periodDate.initDate" />
+        </label>
+        <label>
+            End Date:
+            <input type="date" [(ngModel)]="localProject!.periodDate.finalDate" />
+        </label>
+        <button (click)="onEdit()">Confirm</button>
+    </div>
+    }
+</div>
+} @else {
+<p></p>
+}
