@@ -17,8 +17,6 @@ import { ProjectTableComponent } from "./project-table/project-table.component";
 })
 export class AppComponent {
 
-  title = 'Absantee';
-
   usersList: User[] = [];
   selectedUser: User | null = null;
   projectsList = computed(() => this.projectStateService.getProjectsSignal());
