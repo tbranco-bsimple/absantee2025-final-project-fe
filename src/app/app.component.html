@@ -1,7 +1,5 @@
-<div class="button-container">
-    <button class="primary-button" (click)="getUsers()">Users</button>
-    <button class="primary-button" (click)="getProjects()">Project</button>
-</div>
+<app-header (tabSelected)="onTabSelected($event)"></app-header>
+
 
 @if (activeTab === 'users') {
 <app-users [users]="usersList" (selectedUserEvent)="onUserSelect($event)">
@@ -16,4 +14,14 @@
 <app-projects></app-projects>
 <app-project-table></app-project-table>
 <app-project-details></app-project-details>
+}
+
+@if (activeTab === 'holiday-plans') {
+<app-holiday-plan></app-holiday-plan>
+<app-holiday-plan-details></app-holiday-plan-details>
+}
+
+@if (activeTab === 'assocations-proj-collab') {
+<app-association-proj-collab></app-association-proj-collab>
+<app-association-proj-collab-details></app-association-proj-collab-details>
 }

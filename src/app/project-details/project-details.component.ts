@@ -22,20 +22,19 @@ export class ProjectDetailsComponent {
     effect(() => {
       const project = this.projectDetails();
       this.isEditing = false;
-      this.localProject = project ? JSON.parse(JSON.stringify(project)) : null;
+      this.localProject = project ? structuredClone(project) : null;
     });
   }
 
-
-  edit(): void {
+  edit() {
     this.isEditing = true;
-    this.localProject = this.projectDetails() ? { ...this.projectDetails()! } : null;
+    this.localProject = this.projectDetails() ? structuredClone(this.projectDetails()) : null;
   }
 
-  onEdit(): void {
+  onEdit() {
     if (this.localProject) {
-      console.log('Editing project:', this.localProject);
-      this.projectStateService.emitProjectUpdated(this.localProject);
+      this.projectStateService.updateProject(this.localProject);
+      this.projectStateService.setSelectedProject(null);
       this.isEditing = false;
     }
   }

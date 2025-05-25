@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { Project } from '../model/project';
 import { ProjectApiService } from '../api/project-api.service';
+import { ProjectService } from '../service/project.service';
 
 @Injectable({
     providedIn: 'root',
@@ -13,36 +14,14 @@ export class ProjectStateService {
     private _projectDetails = signal<Project | null>(null);
     readonly projectDetails = this._projectDetails.asReadonly();
 
-    private _updatedProject = signal<Project | null>(null);
-    readonly updatedProject = this._updatedProject.asReadonly();
-
-    constructor(private projectApiService: ProjectApiService) { }
+    constructor(private projectService: ProjectService) { }
 
     loadProjects(): void {
-        this.projectApiService.getProjects().subscribe({
-            next: (projects) => this._projects.set(projects),
-            error: (err) => console.error('Erro ao carregar projetos:', err)
-        });
+        this._projects.set(this.projectService.getProjects());
     }
 
-    getProjectsSignal() {
-        return this._projects();
-    }
-
-    getProjectDetailsSignal() {
-        return this._projectDetails();
-    }
-
-    setSelectedProject(project: Project) {
+    setSelectedProject(project: Project | null): void {
         this._projectDetails.set(project);
-    }
-
-    emitProjectUpdated(project: Project): void {
-        this._updatedProject.set(project);
-    }
-
-    clearUpdatedProject(): void {
-        this._updatedProject.set(null);
     }
 
     updateProject(newProject: Project): void {

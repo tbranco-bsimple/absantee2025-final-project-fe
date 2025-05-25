@@ -1,0 +1,47 @@
+.association-details {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.association-details p {
+    margin: 0.5rem 0;
+    color: #333;
+    font-size: 1rem;
+}
+
+.association-details label {
+    display: block;
+    margin: 0.5rem 0 0.3rem;
+    font-weight: bold;
+    color: #444;
+}
+
+.association-details input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+.association-details button {
+    margin-top: 1.5rem;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.association-details button:hover {
+    background-color: #0056b3;
+}

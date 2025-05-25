@@ -10,7 +10,8 @@ import { ProjectStateService } from '../state/project-state.service';
   styleUrl: './project-table.component.css'
 })
 export class ProjectTableComponent {
-  projects = computed(() => this.projectStateService.getProjectsSignal());
+
+  projects = computed(() => this.projectStateService.projects());
 
   constructor(private projectStateService: ProjectStateService) { }
 

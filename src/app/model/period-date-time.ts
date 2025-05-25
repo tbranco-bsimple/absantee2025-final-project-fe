@@ -1,4 +1,4 @@
 export interface PeriodDateTime {
-    _initDate: Date;
-    _finalDate: Date;
+    _initDate: string;
+    _finalDate: string;
 }

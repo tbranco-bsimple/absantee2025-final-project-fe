@@ -1,0 +1,39 @@
+@if (holidayPlanDetails()){
+<div class="holiday-plan-details">
+    @if (!isEditing){
+    <div>
+        <p><strong>ID:</strong> {{ holidayPlanDetails()!.id }}</p>
+        <p><strong>Collaborator ID:</strong> {{ holidayPlanDetails()!.collaboratorId }}</p>
+
+        <div *ngFor="let period of holidayPlanDetails()!.holidayPeriods; let i = index" class="holiday-period-block">
+            <p><strong>Holiday Period {{ i + 1 }}</strong></p>
+            <p><strong>Start Date:</strong> {{ period.period.initDate | date:'yyyy-MM-dd' }}</p>
+            <p><strong>End Date:</strong> {{ period.period.finalDate | date:'yyyy-MM-dd' }}</p>
+        </div>
+
+        <button (click)="edit()">Edit</button>
+    </div>
+    } @else {
+    <div>
+        <p><strong>ID:</strong> {{ localHolidayPlan!.id }}</p>
+        <p><strong>Collaborator ID:</strong> {{ localHolidayPlan!.collaboratorId }}</p>
+
+        <div *ngFor="let period of localHolidayPlan!.holidayPeriods; let i = index">
+            <p><strong>Holiday Period {{ i + 1 }}</strong></p>
+            <label>
+                Start Date:
+                <input type="date" [(ngModel)]="period.period.initDate" />
+            </label>
+            <label>
+                End Date:
+                <input type="date" [(ngModel)]="period.period.finalDate" />
+            </label>
+        </div>
+
+        <button (click)="onEdit()">Confirm</button>
+    </div>
+    }
+</div>
+} @else {
+<p></p>
+}

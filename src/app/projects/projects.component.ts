@@ -11,7 +11,7 @@ import { ProjectStateService } from '../state/project-state.service';
 })
 export class ProjectsComponent {
 
-  projects = computed(() => this.projectStateService.getProjectsSignal());
+  projects = computed(() => this.projectStateService.projects());
 
   constructor(private projectStateService: ProjectStateService) { }
 

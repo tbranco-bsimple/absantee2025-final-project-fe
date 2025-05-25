@@ -1,0 +1,31 @@
+@if (associationDetails()) {
+<div class="association-details">
+    @if (!isEditing) {
+    <div>
+        <p><strong>ID:</strong> {{ associationDetails()!.id }}</p>
+        <p><strong>Collaborator ID:</strong> {{ associationDetails()!.collaboratorId }}</p>
+        <p><strong>Project ID:</strong> {{ associationDetails()!.projectId }}</p>
+        <p><strong>Start Date:</strong> {{ associationDetails()!.period.initDate | date:'yyyy-MM-dd' }}</p>
+        <p><strong>End Date:</strong> {{ associationDetails()!.period.finalDate | date:'yyyy-MM-dd' }}</p>
+        <button (click)="edit()">Edit</button>
+    </div>
+    } @else {
+    <div>
+        <p><strong>ID:</strong> {{ localAssociation!.id }}</p>
+        <p><strong>Collaborator ID:</strong> {{ localAssociation!.collaboratorId }}</p>
+        <p><strong>Project ID:</strong> {{ localAssociation!.projectId }}</p>
+        <label>
+            Start Date:
+            <input type="date" [(ngModel)]="localAssociation!.period.initDate" />
+        </label>
+        <label>
+            End Date:
+            <input type="date" [(ngModel)]="localAssociation!.period.finalDate" />
+        </label>
+        <button (click)="onEdit()">Confirm</button>
+    </div>
+    }
+</div>
+} @else {
+<p></p>
+}
