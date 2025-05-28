@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { HolidayPlan } from '../model/holiday-plan';
 import { HolidayPlanApiService } from '../api/holiday-plan-api.service';
 import { HolidayPlanService } from '../service/holiday-plan.service';
+import { HolidayPeriod } from '../model/holiday-period';
 
 @Injectable({
     providedIn: 'root',
@@ -14,10 +15,17 @@ export class HolidayPlanStateService {
     private _holidayPlanDetails = signal<HolidayPlan | null>(null);
     readonly holidayPlanDetails = this._holidayPlanDetails.asReadonly();
 
-    constructor(private holidayPlanService: HolidayPlanService) { }
+    constructor(private holidayPlanService: HolidayPlanService, private holidayPlanApiService: HolidayPlanApiService) { }
 
     loadHolidayPlans(): void {
         this._holidayPlans.set(this.holidayPlanService.getHolidayPlans());
+    }
+
+    loadHolidayPlanForCollaborator(userId: string): void {
+        console.log('Loading holiday plan for user:', userId);
+        const holidayPlanDetailsStatic = this.holidayPlanService.getHolidayPlanByCollaboratorId(userId);
+        const holidayPlanDetails = this.holidayPlanApiService.getHolidayPlanByCollabId(userId);
+        this._holidayPlanDetails.set(holidayPlanDetailsStatic)
     }
 
     setSelectedHolidayPlan(holidayPlan: HolidayPlan | null) {

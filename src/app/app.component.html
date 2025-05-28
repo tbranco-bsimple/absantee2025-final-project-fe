@@ -5,7 +5,7 @@
 <app-users [users]="usersList" (selectedUserEvent)="onUserSelect($event)">
 </app-users>
 @if (selectedUser) {
-<app-user-details [userDetails]="selectedUser" (userUpdated)="onUserUpdated($event)">
+<app-user-details [userDetails]=" selectedUser" (userUpdated)="onUserUpdated($event)">
 </app-user-details>
 }
 }
@@ -21,7 +21,7 @@
 <app-holiday-plan-details></app-holiday-plan-details>
 }
 
-@if (activeTab === 'assocations-proj-collab') {
+@if (activeTab === 'associations-proj-collab') {
 <app-association-proj-collab></app-association-proj-collab>
 <app-association-proj-collab-details></app-association-proj-collab-details>
 }

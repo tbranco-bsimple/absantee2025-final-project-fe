@@ -19,6 +19,10 @@ export class AssociationProjCollabStateService {
         this._associations.set(this.associationService.getAssociations());
     }
 
+    loadAssociationsForCollaborator(userId: string): void {
+        this._associationDetails.set(this.associationService.getAssociationsByCollaboratorId(userId));
+    }
+
     setSelectedAssociation(association: AssociationProjCollab | null) {
         this._associationDetails.set(association);
     }

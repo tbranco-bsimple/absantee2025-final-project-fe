@@ -1,4 +1,4 @@
-import { Component, computed, effect } from '@angular/core';
+import { Component, computed, effect, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Project } from '../model/project';
@@ -11,7 +11,7 @@ import { ProjectStateService } from '../state/project-state.service';
   templateUrl: './project-details.component.html',
   styleUrl: './project-details.component.css'
 })
-export class ProjectDetailsComponent {
+export class ProjectDetailsComponent implements OnDestroy {
 
   projectDetails = computed(() => this.projectStateService.projectDetails());
 
@@ -24,6 +24,10 @@ export class ProjectDetailsComponent {
       this.isEditing = false;
       this.localProject = project ? structuredClone(project) : null;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.projectStateService.setSelectedProject(null);
   }
 
   edit() {

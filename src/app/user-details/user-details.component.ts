@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnChanges, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { User } from '../model/user';
@@ -10,13 +10,18 @@ import { User } from '../model/user';
   styleUrl: './user-details.component.css'
 })
 
-export class UserDetailsComponent implements OnChanges {
+export class UserDetailsComponent implements OnChanges, OnDestroy {
 
   @Input() userDetails: User | null = null;
   @Output() userUpdated = new EventEmitter<User>();
   isEditing = false;
 
   ngOnChanges(): void {
+    this.isEditing = false;
+  }
+
+  ngOnDestroy(): void {
+    this.userDetails = null;
     this.isEditing = false;
   }
 

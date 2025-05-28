@@ -1,4 +1,4 @@
-import { Component, computed, effect } from '@angular/core';
+import { Component, computed, effect, Input, OnChanges, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AssociationProjCollab } from '../model/association-proj-collab';
@@ -11,19 +11,35 @@ import { AssociationProjCollabStateService } from '../state/association-proj-col
   templateUrl: './association-proj-collab-details.component.html',
   styleUrl: './association-proj-collab-details.component.css'
 })
-export class AssociationProjCollabDetailsComponent {
+export class AssociationProjCollabDetailsComponent implements OnChanges, OnDestroy {
 
   associationDetails = computed(() => this.associationStateService.associationDetails());
 
   isEditing = false;
   localAssociation: AssociationProjCollab | null = null;
 
+  @Input() collaboratorId!: string;
+
+
   constructor(private associationStateService: AssociationProjCollabStateService) {
     effect(() => {
+      if (this.collaboratorId) {
+        this.associationStateService.loadAssociationsForCollaborator(this.collaboratorId)
+      }
       const association = this.associationDetails();
       this.isEditing = false;
       this.localAssociation = association ? structuredClone(association) : null;
     });
+  }
+
+  ngOnChanges() {
+    if (this.collaboratorId) {
+      this.associationStateService.loadAssociationsForCollaborator(this.collaboratorId);
+    }
+  }
+
+  ngOnDestroy() {
+    this.associationStateService.setSelectedAssociation(null);
   }
 
   edit() {

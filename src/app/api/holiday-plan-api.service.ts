@@ -11,8 +11,13 @@ import { map } from 'rxjs/operators';
 export class HolidayPlanApiService {
 
     url = 'http://localhost:5073/api/holidayplans';
+    url2 = 'http://localhost:5073/api/collaborators';
 
     constructor(private httpClient: HttpClient) { }
+
+    getHolidayPlanByCollabId(id: string): Observable<HolidayPeriod> {
+        return this.httpClient.get<HolidayPeriod>(this.url2 + id + '/holidayPlan/holidayPeriod');
+    }
 
     getHolidayPlans(): Observable<HolidayPlan[]> {
         return this.httpClient.get<HolidayPlan[]>(this.url);

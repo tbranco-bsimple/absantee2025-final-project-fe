@@ -39,7 +39,7 @@ export class AppComponent {
   holidayPlansList = computed(() => this.holidayPlanStateService.holidayPlans());
   associationsList = computed(() => this.associationProjCollabStateService.associations());
 
-  activeTab: 'users' | 'projects' | 'holiday-plans' | 'assocations-proj-collab' | null = null;
+  activeTab: 'users' | 'projects' | 'holiday-plans' | 'associations-proj-collab' | null = null;
 
   constructor(
     private userService: UserService,
@@ -64,7 +64,7 @@ export class AppComponent {
       case 'holiday-plans':
         this.getHolidayPlans();
         break;
-      case 'assocations-proj-collab':
+      case 'associations-proj-collab':
         this.getAssociations();
         break;
     }
@@ -87,9 +87,8 @@ export class AppComponent {
 
   getAssociations() {
     this.associationProjCollabStateService.loadAssociations();
-    this.activeTab = 'assocations-proj-collab';
+    this.activeTab = 'associations-proj-collab';
   }
-
 
   //USER
   onUserSelect(user: User): void {

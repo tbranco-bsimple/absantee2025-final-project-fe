@@ -84,4 +84,12 @@ export class AssociationProjCollabService {
         return association;
     }
 
+    getAssociationsByCollaboratorId(collaboratorId: string): AssociationProjCollab {
+        const assocation = this.associations.find(assoc => assoc.collaboratorId === collaboratorId);
+        if (!assocation) {
+            throw new Error(`Association with collaborator id ${collaboratorId} not found`);
+        }
+        return assocation;
+    }
+
 }

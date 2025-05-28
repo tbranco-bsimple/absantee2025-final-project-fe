@@ -7,6 +7,8 @@
             <th>Email</th>
             <th>Start Date</th>
             <th>End Date</th>
+            <th>Associations</th>
+            <th>Holidays</th>
         </tr>
     </thead>
     <tbody>
@@ -15,6 +17,18 @@
             <td>{{ user.email }}</td>
             <td>{{ user.periodDateTime._initDate | date: 'yyyy-MM-dd' }}</td>
             <td>{{ user.periodDateTime._finalDate | date: 'yyyy-MM-dd' }}</td>
+            <td><button (click)="openAssociations(user.id); $event.stopPropagation()">Assocations</button>
+            </td>
+            <td><button (click)="openHolidays(user.id); $event.stopPropagation()">Holidays</button>
+            </td>
         </tr>
     </tbody>
 </table>
+
+@if (selectedAssociationsUserId) {
+<app-association-proj-collab-details [collaboratorId]="selectedAssociationsUserId" />
+}
+
+@if (selectedHolidaysUserId) {
+<app-holiday-plan-details [collaboratorId]="selectedHolidaysUserId" />
+}
