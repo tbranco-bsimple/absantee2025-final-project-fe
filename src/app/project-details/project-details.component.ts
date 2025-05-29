@@ -42,4 +42,7 @@ export class ProjectDetailsComponent implements OnDestroy {
       this.isEditing = false;
     }
   }
+  onCancel() {
+    this.isEditing = false;
+  }
 }

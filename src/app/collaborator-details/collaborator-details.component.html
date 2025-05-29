@@ -1,0 +1,52 @@
+@if (collaboratorDetails()){
+<div class="user-details">
+    @if (!isEditing){
+    <div>
+        <p><strong>ID:</strong> {{ collaboratorDetails()!.collabId }}</p>
+        <p><strong>User ID:</strong> {{ collaboratorDetails()!.userId }}</p>
+        <p><strong>First Name:</strong> {{ collaboratorDetails()!.names }}</p>
+        <p><strong>Last Name:</strong> {{ collaboratorDetails()!.surnames }}</p>
+        <p><strong>Email:</strong> {{ collaboratorDetails()!.email }}</p>
+        <p><strong>Collab Start Date:</strong> {{ collaboratorDetails()!.collaboratorPeriod._initDate | date:
+            'yyyy-MM-dd' }}</p>
+        <p><strong>Collab End Date:</strong> {{ collaboratorDetails()!.collaboratorPeriod._finalDate | date:
+            'yyyy-MM-dd' }}</p>
+        <p><strong>User Start Date:</strong> {{ collaboratorDetails()!.userPeriod._initDate | date: 'yyyy-MM-dd' }}</p>
+        <p><strong>User End Date:</strong> {{ collaboratorDetails()!.userPeriod._finalDate | date: 'yyyy-MM-dd' }}</p>
+        <button (click)="edit()">Edit</button>
+    </div>
+    }
+    @else{
+    <div>
+        <p><strong>ID:</strong> {{ localCollaborator!.collabId }}</p>
+        <p><strong>User ID:</strong> {{ localCollaborator!.userId }}</p>
+        <label>
+            First Name:
+            <input [(ngModel)]="localCollaborator!.names" />
+        </label>
+        <label>
+            Last Name:
+            <input [(ngModel)]="localCollaborator!.surnames" />
+        </label>
+        <label>
+            Email:
+            <input [(ngModel)]="localCollaborator!.email" />
+        </label>
+        <label>
+            Collab Start Date:
+            <input type="date" [(ngModel)]="localCollaborator!.collaboratorPeriod._initDate" />
+        </label>
+        <label>
+            Collab End Date:
+            <input type="date" [(ngModel)]="localCollaborator!.collaboratorPeriod._finalDate" />
+        </label>
+        <p><strong>User Start Date:</strong> {{ localCollaborator!.userPeriod._initDate }}</p>
+        <p><strong>User End Date:</strong> {{ localCollaborator!.userPeriod._finalDate }}</p>
+        <button (click)="onEdit()">Confirm</button>
+        <button (click)="onCancel()">Cancel</button>
+    </div>
+    }
+</div>
+} @else {
+<p></p>
+}

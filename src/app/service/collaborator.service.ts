@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { User } from '../model/user';
+import { Collaborator } from '../model/collaborator';
+import { AssociationProjCollab } from '../model/association-proj-collab';
 
 @Injectable({
     providedIn: 'root',
 })
-export class UserService {
+export class CollaboratorService {
 
-    users: User[] = [
+    users: Collaborator[] = [
         {
             id: "2541a8b8-ed5e-4530-88ea-893796e60507",
             names: "Ella",
@@ -89,11 +90,11 @@ export class UserService {
         }
     ];
 
-    getUsers(): User[] {
+    getCollaborators(): Collaborator[] {
         return this.users;
     }
 
-    getUserById(id: string): User {
+    getCollaboratorById(id: string): Collaborator {
         const user = this.users.find(user => user.id === id);
         if (!user) {
             throw new Error(`User with id ${id} not found`);

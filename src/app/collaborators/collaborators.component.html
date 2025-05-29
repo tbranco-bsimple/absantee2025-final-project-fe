@@ -1,0 +1,36 @@
+<h1 class="title">Collaborators</h1>
+
+<table class="collaborators-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Associations</th>
+            <th>Holidays</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let collaborator of collaborators()" (click)="handleCollaboratorSelected(collaborator)">
+            <td>{{ collaborator.names }} {{ collaborator.surnames }}</td>
+            <td>{{ collaborator.email }}</td>
+            <td>{{ collaborator.collaboratorPeriod._initDate | date: 'yyyy-MM-dd' }}</td>
+            <td>{{ collaborator.collaboratorPeriod._finalDate | date: 'yyyy-MM-dd' }}</td>
+            <td><button (click)="openAssociations(collaborator.collabId); $event.stopPropagation()">Assocations</button>
+            </td>
+            <td><button (click)="openHolidays(collaborator.collabId); $event.stopPropagation()">Holidays</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@if (selectedHolidaysCollaboratorId) {
+<app-holiday-period [collaboratorId]="selectedHolidaysCollaboratorId" />
+<app-holiday-period-details></app-holiday-period-details>
+}
+
+@if (selectedAssociationsCollaboratorId) {
+<app-association-proj-collab [collaboratorId]="selectedAssociationsCollaboratorId" />
+<app-association-proj-collab-details></app-association-proj-collab-details>
+}

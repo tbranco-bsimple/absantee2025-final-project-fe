@@ -5,6 +5,7 @@
         <tr>
             <th>Collaborator ID</th>
             <th>Project ID</th>
+            <th>Project Acronym</th>
             <th>Start Date</th>
             <th>End Date</th>
         </tr>
@@ -13,8 +14,9 @@
         <tr *ngFor="let association of associations()" (click)="handleAssociationSelected(association)">
             <td>{{ association.collaboratorId }}</td>
             <td>{{ association.projectId }}</td>
-            <td>{{ association.period.initDate | date: 'yyyy-MM-dd' }}</td>
-            <td>{{ association.period.finalDate | date: 'yyyy-MM-dd' }}</td>
+            <td>{{ association.projectAcronym }}</td>
+            <td>{{ association.periodDate.initDate | date: 'yyyy-MM-dd' }}</td>
+            <td>{{ association.periodDate.finalDate | date: 'yyyy-MM-dd' }}</td>
         </tr>
     </tbody>
 </table>

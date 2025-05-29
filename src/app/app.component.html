@@ -1,27 +1,12 @@
 <app-header (tabSelected)="onTabSelected($event)"></app-header>
 
-
-@if (activeTab === 'users') {
-<app-users [users]="usersList" (selectedUserEvent)="onUserSelect($event)">
-</app-users>
-@if (selectedUser) {
-<app-user-details [userDetails]=" selectedUser" (userUpdated)="onUserUpdated($event)">
-</app-user-details>
-}
+@if (activeTab === 'collaborators') {
+<app-collaborators></app-collaborators>
+<app-collaborator-details></app-collaborator-details>
 }
 
 @if (activeTab === 'projects') {
 <app-projects></app-projects>
 <app-project-table></app-project-table>
 <app-project-details></app-project-details>
-}
-
-@if (activeTab === 'holiday-plans') {
-<app-holiday-plan></app-holiday-plan>
-<app-holiday-plan-details></app-holiday-plan-details>
-}
-
-@if (activeTab === 'associations-proj-collab') {
-<app-association-proj-collab></app-association-proj-collab>
-<app-association-proj-collab-details></app-association-proj-collab-details>
 }

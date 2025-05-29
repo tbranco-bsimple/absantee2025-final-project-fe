@@ -8,9 +8,9 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class HeaderComponent {
 
-  @Output() tabSelected = new EventEmitter<'users' | 'projects' | 'holiday-plans' | 'associations-proj-collab'>();
+  @Output() tabSelected = new EventEmitter<'collaborators' | 'projects'>();
 
-  selectTab(tab: 'users' | 'projects' | 'holiday-plans' | 'associations-proj-collab') {
+  selectTab(tab: 'collaborators' | 'projects') {
     this.tabSelected.emit(tab);
   }
 

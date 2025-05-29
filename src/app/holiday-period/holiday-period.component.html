@@ -1,0 +1,38 @@
+<h1 class="title">Holidays</h1>
+
+<table class="holiday-period-table">
+    <thead>
+        <tr>
+            <th>Holiday Period ID</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let holidayPeriod of holidayPeriods()" (click)="handleHolidayPeriodSelected(holidayPeriod)">
+            <td>{{ holidayPeriod.id }}</td>
+            <td>{{ holidayPeriod.periodDate.initDate | date: 'yyyy-MM-dd' }}</td>
+            <td>{{ holidayPeriod.periodDate.finalDate | date: 'yyyy-MM-dd' }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<button (click)="createEmptyHoliday()">Add Holiday Period</button>
+<form [formGroup]="form" class="holiday-form">
+    <div formArrayName="holidays">
+        <div *ngFor="let group of holidaysForm.controls; let i = index" [formGroupName]="i" class="form-row">
+            <label>
+                Start Date:
+                <input type="date" formControlName="initDate">
+            </label>
+            <label>
+                End Date:
+                <input type="date" formControlName="finalDate">
+            </label>
+        </div>
+        @if (showButtons){
+        <button type="button" (click)="submitNewHolidayPeriod()">Confirm</button>
+        <button type="button" (click)="onCancel()">Cancel</button>
+        }
+    </div>
+</form>

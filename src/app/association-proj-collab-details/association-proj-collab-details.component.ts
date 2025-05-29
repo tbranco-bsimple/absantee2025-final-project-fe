@@ -1,8 +1,8 @@
-import { Component, computed, effect, Input, OnChanges, OnDestroy } from '@angular/core';
+import { Component, computed, effect, Input, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AssociationProjCollab } from '../model/association-proj-collab';
-import { AssociationProjCollabStateService } from '../state/association-proj-collab-state.service';
+import { CollaboratorStateService } from '../state/collaborator-state.service';
 
 @Component({
   selector: 'app-association-proj-collab-details',
@@ -11,35 +11,25 @@ import { AssociationProjCollabStateService } from '../state/association-proj-col
   templateUrl: './association-proj-collab-details.component.html',
   styleUrl: './association-proj-collab-details.component.css'
 })
-export class AssociationProjCollabDetailsComponent implements OnChanges, OnDestroy {
+export class AssociationProjCollabDetailsComponent implements OnDestroy {
 
-  associationDetails = computed(() => this.associationStateService.associationDetails());
+  associationDetails = computed(() => this.collaboratorStateService.collaboratorAssociationDetails());
 
   isEditing = false;
   localAssociation: AssociationProjCollab | null = null;
 
-  @Input() collaboratorId!: string;
+  @Input() collaboratorId!: string
 
-
-  constructor(private associationStateService: AssociationProjCollabStateService) {
+  constructor(private collaboratorStateService: CollaboratorStateService) {
     effect(() => {
-      if (this.collaboratorId) {
-        this.associationStateService.loadAssociationsForCollaborator(this.collaboratorId)
-      }
       const association = this.associationDetails();
       this.isEditing = false;
       this.localAssociation = association ? structuredClone(association) : null;
     });
   }
 
-  ngOnChanges() {
-    if (this.collaboratorId) {
-      this.associationStateService.loadAssociationsForCollaborator(this.collaboratorId);
-    }
-  }
-
   ngOnDestroy() {
-    this.associationStateService.setSelectedAssociation(null);
+    this.collaboratorStateService.setSelectedAssociation(null);
   }
 
   edit() {
@@ -49,9 +39,12 @@ export class AssociationProjCollabDetailsComponent implements OnChanges, OnDestr
 
   onEdit() {
     if (this.localAssociation) {
-      this.associationStateService.updateAssociation(this.localAssociation);
-      this.associationStateService.setSelectedAssociation(null);
+      this.collaboratorStateService.updateAssociation(this.localAssociation);
+      this.collaboratorStateService.setSelectedAssociation(null);
       this.isEditing = false;
     }
+  }
+  onCancel() {
+    this.isEditing = false;
   }
 }

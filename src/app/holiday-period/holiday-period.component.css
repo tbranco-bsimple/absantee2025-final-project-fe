@@ -5,7 +5,7 @@
     color: #2c3e50;
 }
 
-.holiday-plan-table {
+.holiday-period-table {
     width: 100%;
     max-width: 900px;
     margin: 0 auto;
@@ -17,36 +17,36 @@
     overflow: hidden;
 }
 
-.holiday-plan-table th,
-.holiday-plan-table td {
+.holiday-period-table th,
+.holiday-period-table td {
     padding: 0.75rem 1rem;
     text-align: left;
     border-bottom: 1px solid #dce9f4;
 }
 
-.holiday-plan-table th {
+.holiday-period-table th {
     background-color: #d0e7ff;
     color: #004080;
     font-weight: bold;
 }
 
 /* Linhas intercaladas com tons de azul */
-.holiday-plan-table tbody tr:nth-child(odd) {
+.holiday-period-table tbody tr:nth-child(odd) {
     background-color: #f0f8ff;
     /* Azul muito claro */
 }
 
-.holiday-plan-table tbody tr:nth-child(even) {
+.holiday-period-table tbody tr:nth-child(even) {
     background-color: #e0f0ff;
     /* Azul ligeiramente mais forte */
 }
 
-.holiday-plan-table tbody tr:hover {
+.holiday-period-table tbody tr:hover {
     background-color: #d6ecff;
     cursor: pointer;
 }
 
-.holiday-plan-table tr.selected {
+.holiday-period-table tr.selected {
     background-color: #cce5ff;
     border-left: 4px solid #007bff;
 }

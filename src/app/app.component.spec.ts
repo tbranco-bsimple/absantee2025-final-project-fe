@@ -1,13 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { UserDetailsComponent } from './user-details/user-details.component';
-import { UsersComponent } from './users/users.component';
+import { CollaboratorDetailsComponent } from './collaborator-details/collaborator-details.component';
+import { CollaboratorsComponent } from './collaborators/collaborators.component';
 import { By } from '@angular/platform-browser';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectTableComponent } from './project-table/project-table.component';
 import { ProjectDetailsComponent } from './project-details/project-details.component';
-import { ProjectApiService } from './api/project-api.service';
+import { ProjectApiService } from './service-api/project-api.service';
 import { ProjectStateService } from './state/project-state.service';
 import { signal, WritableSignal } from '@angular/core';
 import { Project } from './model/project';
@@ -39,7 +39,7 @@ describe('AppComponent', () => {
     });
 
     await TestBed.configureTestingModule({
-      imports: [AppComponent, UsersComponent, UserDetailsComponent, ProjectsComponent, ProjectTableComponent, ProjectDetailsComponent],
+      imports: [AppComponent, CollaboratorsComponent, CollaboratorDetailsComponent, ProjectsComponent, ProjectTableComponent, ProjectDetailsComponent],
       providers: [
         provideHttpClient(),
         { provide: ProjectStateService, useValue: mockProjectStateService },
@@ -150,12 +150,12 @@ describe('AppComponent', () => {
       }
     ];
 
-    app.usersList = mockUsers;
+    app.collaboratorsList = mockUsers;
     app.activeTab = 'users';
     fixture.detectChanges();
 
 
-    const usersComponent = fixture.debugElement.query(By.directive(UsersComponent))?.componentInstance;
+    const usersComponent = fixture.debugElement.query(By.directive(CollaboratorsComponent))?.componentInstance;
     expect(usersComponent).toBeTruthy();  // Verifica se o componente está instanciado corretamente
 
 
@@ -166,7 +166,7 @@ describe('AppComponent', () => {
     //Assert
     expect(app.selectedUser).toEqual(mockUsers[1]);
 
-    const detailsComponent = fixture.debugElement.query(By.directive(UserDetailsComponent))?.componentInstance;
+    const detailsComponent = fixture.debugElement.query(By.directive(CollaboratorDetailsComponent))?.componentInstance;
     expect(detailsComponent.userDetails).toEqual(mockUsers[1]);
 
 

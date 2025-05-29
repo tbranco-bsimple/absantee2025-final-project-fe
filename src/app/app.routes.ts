@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { UsersComponent } from './users/users.component';
-import { UserDetailsComponent } from './user-details/user-details.component';
+import { CollaboratorsComponent } from './collaborators/collaborators.component';
+import { CollaboratorDetailsComponent } from './collaborator-details/collaborator-details.component';
 
 export const routes: Routes = [
     /* {

@@ -4,5 +4,6 @@ export interface AssociationProjCollab {
     id: string;
     collaboratorId: string;
     projectId: string;
-    period: PeriodDate;
+    projectAcronym: string;
+    periodDate: PeriodDate;
 }

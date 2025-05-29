@@ -1,4 +1,4 @@
-.holiday-plan-details {
+.holiday-period-details {
     max-width: 600px;
     margin: 2rem auto;
     padding: 1.5rem;
@@ -8,20 +8,20 @@
     box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.05);
 }
 
-.holiday-plan-details p {
+.holiday-period-details p {
     margin: 0.5rem 0;
     color: #333;
     font-size: 1rem;
 }
 
-.holiday-plan-details label {
+.holiday-period-details label {
     display: block;
     margin: 0.5rem 0 0.3rem;
     font-weight: bold;
     color: #444;
 }
 
-.holiday-plan-details input {
+.holiday-period-details input {
     width: 100%;
     padding: 0.5rem;
     border-radius: 8px;
@@ -30,7 +30,7 @@
     box-sizing: border-box;
 }
 
-.holiday-plan-details button {
+.holiday-period-details button {
     margin-top: 1.5rem;
     padding: 0.6rem 1.2rem;
     font-size: 1rem;
@@ -42,7 +42,7 @@
     transition: background-color 0.2s;
 }
 
-.holiday-plan-details button:hover {
+.holiday-period-details button:hover {
     background-color: #0056b3;
 }
 
