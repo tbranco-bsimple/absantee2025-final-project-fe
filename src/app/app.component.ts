@@ -14,7 +14,7 @@ import { CollaboratorStateService } from './state/collaborator-state.service';
   imports: [
     HeaderComponent,
     CollaboratorsComponent, CollaboratorDetailsComponent,
-    ProjectsComponent, ProjectDetailsComponent, ProjectTableComponent,
+    /* ProjectsComponent, */ ProjectDetailsComponent, ProjectTableComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

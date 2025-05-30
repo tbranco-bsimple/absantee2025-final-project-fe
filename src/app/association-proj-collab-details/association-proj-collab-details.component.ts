@@ -2,7 +2,7 @@ import { Component, computed, effect, Input, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AssociationProjCollab } from '../model/association-proj-collab';
-import { CollaboratorStateService } from '../state/collaborator-state.service';
+import { AssociationProjCollabStateService } from '../state/association-proj-collab-state.service';
 
 @Component({
   selector: 'app-association-proj-collab-details',
@@ -13,14 +13,15 @@ import { CollaboratorStateService } from '../state/collaborator-state.service';
 })
 export class AssociationProjCollabDetailsComponent implements OnDestroy {
 
-  associationDetails = computed(() => this.collaboratorStateService.collaboratorAssociationDetails());
+  associationDetails = computed(() => this.associationProjCollabStateService.associationDetails());
 
   isEditing = false;
   localAssociation: AssociationProjCollab | null = null;
 
   @Input() collaboratorId!: string
+  @Input() projectId!: string;
 
-  constructor(private collaboratorStateService: CollaboratorStateService) {
+  constructor(private associationProjCollabStateService: AssociationProjCollabStateService) {
     effect(() => {
       const association = this.associationDetails();
       this.isEditing = false;
@@ -29,7 +30,7 @@ export class AssociationProjCollabDetailsComponent implements OnDestroy {
   }
 
   ngOnDestroy() {
-    this.collaboratorStateService.setSelectedAssociation(null);
+    this.associationProjCollabStateService.setSelectedAssociation(null);
   }
 
   edit() {
@@ -39,8 +40,8 @@ export class AssociationProjCollabDetailsComponent implements OnDestroy {
 
   onEdit() {
     if (this.localAssociation) {
-      this.collaboratorStateService.updateAssociation(this.localAssociation);
-      this.collaboratorStateService.setSelectedAssociation(null);
+      this.associationProjCollabStateService.updateAssociation(this.localAssociation);
+      this.associationProjCollabStateService.setSelectedAssociation(null);
       this.isEditing = false;
     }
   }

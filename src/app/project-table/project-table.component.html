@@ -7,6 +7,7 @@
             <th>Acronym</th>
             <th>Start Date</th>
             <th>End Date</th>
+            <th>Associations</th>
         </tr>
     </thead>
     <tbody>
@@ -15,6 +16,13 @@
             <td>{{ project.acronym }}</td>
             <td>{{ project.periodDate.initDate | date: 'yyyy-MM-dd' }}</td>
             <td>{{ project.periodDate.finalDate | date: 'yyyy-MM-dd' }}</td>
+            <td><button (click)="openAssociations(project.id); $event.stopPropagation()">Assocations</button>
+            </td>
         </tr>
     </tbody>
 </table>
+
+@if (selectedProjectId){
+<app-association-proj-collab [projectId]="selectedProjectId" />
+<app-association-proj-collab-details [projectId]="selectedProjectId"></app-association-proj-collab-details>
+}

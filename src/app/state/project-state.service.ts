@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { Project } from '../model/project';
 import { ProjectApiService } from '../service-api/project-api.service';
 import { ProjectService } from '../service/project.service';
+import { AssociationProjCollab } from '../model/association-proj-collab';
 
 @Injectable({
     providedIn: 'root',

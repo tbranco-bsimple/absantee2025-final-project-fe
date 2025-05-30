@@ -32,5 +32,6 @@
 
 @if (selectedAssociationsCollaboratorId) {
 <app-association-proj-collab [collaboratorId]="selectedAssociationsCollaboratorId" />
-<app-association-proj-collab-details></app-association-proj-collab-details>
+<app-association-proj-collab-details
+    [collaboratorId]="selectedAssociationsCollaboratorId"></app-association-proj-collab-details>
 }

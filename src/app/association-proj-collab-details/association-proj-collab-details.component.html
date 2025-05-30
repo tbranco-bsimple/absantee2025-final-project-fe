@@ -3,9 +3,16 @@
     @if (!isEditing) {
     <div>
         <p><strong>ID:</strong> {{ associationDetails()!.id }}</p>
+        @if (projectId) {
+        <p><strong>Project ID:</strong> {{ associationDetails()!.projectId }}</p>
+        <p><strong>Collaborator ID:</strong> {{ associationDetails()!.collaboratorId }}</p>
+        <p><strong>Collaborator Email:</strong> {{ associationDetails()!.collaboratorEmail }}</p>
+        }
+        @if (collaboratorId){
         <p><strong>Collaborator ID:</strong> {{ associationDetails()!.collaboratorId }}</p>
         <p><strong>Project ID:</strong> {{ associationDetails()!.projectId }}</p>
         <p><strong>Project Acryonym:</strong> {{ associationDetails()!.projectAcronym }}</p>
+        }
         <p><strong>Start Date:</strong> {{ associationDetails()!.periodDate.initDate | date:'yyyy-MM-dd' }}</p>
         <p><strong>End Date:</strong> {{ associationDetails()!.periodDate.finalDate | date:'yyyy-MM-dd' }}</p>
         <button (click)="edit()">Edit</button>
@@ -13,9 +20,16 @@
     } @else {
     <div>
         <p><strong>ID:</strong> {{ localAssociation!.id }}</p>
+        @if (projectId) {
+        <p><strong>Project ID:</strong> {{ localAssociation!.projectId }}</p>
+        <p><strong>Collaborator ID:</strong> {{ localAssociation!.collaboratorId }}</p>
+        <p><strong>Collaborator Email:</strong> {{ localAssociation!.collaboratorEmail }}</p>
+        }
+        @if (collaboratorId){
         <p><strong>Collaborator ID:</strong> {{ localAssociation!.collaboratorId }}</p>
         <p><strong>Project ID:</strong> {{ localAssociation!.projectId }}</p>
         <p><strong>Project Acronym:</strong> {{ localAssociation!.projectAcronym }}</p>
+        }
         <label>
             Start Date:
             <input type="date" [(ngModel)]="localAssociation!.periodDate.initDate" />

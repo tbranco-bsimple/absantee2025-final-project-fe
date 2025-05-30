@@ -31,14 +31,12 @@ export class CollaboratorsComponent {
     this.selectedAssociationsCollaboratorId = collaboratorId;
     this.selectedHolidaysCollaboratorId = null;
     this.collaboratorStateService.setSelectedCollaborator(null);
-
   }
 
   openHolidays(collaboratorId: string) {
     this.selectedHolidaysCollaboratorId = collaboratorId;
     this.selectedAssociationsCollaboratorId = null;
     this.collaboratorStateService.setSelectedCollaborator(null);
-
   }
 
 }

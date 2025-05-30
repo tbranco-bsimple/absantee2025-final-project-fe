@@ -3,18 +3,33 @@
 <table class="association">
     <thead>
         <tr>
+            @if (projectId) {
+            <th>Project ID</th>
+            <th>Collaborator ID</th>
+            <th>Collaborator Email</th>
+            }
+            @if (collaboratorId) {
             <th>Collaborator ID</th>
             <th>Project ID</th>
             <th>Project Acronym</th>
+            }
             <th>Start Date</th>
             <th>End Date</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let association of associations()" (click)="handleAssociationSelected(association)">
+
+            @if (projectId) {
+            <td>{{ association.projectId }}</td>
+            <td>{{ association.collaboratorId }}</td>
+            <td>{{ association.collaboratorEmail }}</td>
+            }
+            @if (collaboratorId) {
             <td>{{ association.collaboratorId }}</td>
             <td>{{ association.projectId }}</td>
             <td>{{ association.projectAcronym }}</td>
+            }
             <td>{{ association.periodDate.initDate | date: 'yyyy-MM-dd' }}</td>
             <td>{{ association.periodDate.finalDate | date: 'yyyy-MM-dd' }}</td>
         </tr>

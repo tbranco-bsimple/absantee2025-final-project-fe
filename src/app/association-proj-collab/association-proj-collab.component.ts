@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, Input, effect, OnChanges } from '@angular/core';
 import { AssociationProjCollab } from '../model/association-proj-collab';
-import { CollaboratorStateService } from '../state/collaborator-state.service';
+import { AssociationProjCollabStateService } from '../state/association-proj-collab-state.service';
+
 
 @Component({
   selector: 'app-association-proj-collab',
@@ -11,26 +12,33 @@ import { CollaboratorStateService } from '../state/collaborator-state.service';
 })
 export class AssociationProjCollabComponent implements OnChanges {
 
-  associations = computed(() => this.collaboratorStateService.collaboratorAssociations());
+  associations = computed(() => this.associationProjCollabStateService.associations());
 
   @Input() collaboratorId!: string;
+  @Input() projectId!: string;
 
-  constructor(private collaboratorStateService: CollaboratorStateService) {
+  constructor(private associationProjCollabStateService: AssociationProjCollabStateService) {
     effect(() => {
       if (this.collaboratorId) {
-        this.collaboratorStateService.loadCollaboratorAssociations(this.collaboratorId);
+        this.associationProjCollabStateService.loadCollaboratorAssociations(this.collaboratorId);
+      }
+      if (this.projectId) {
+        this.associationProjCollabStateService.loadProjectAssociations(this.projectId);
       }
     });
   }
 
   ngOnChanges() {
     if (this.collaboratorId) {
-      this.collaboratorStateService.loadCollaboratorAssociations(this.collaboratorId);
+      this.associationProjCollabStateService.loadCollaboratorAssociations(this.collaboratorId);
+    }
+    if (this.projectId) {
+      this.associationProjCollabStateService.loadProjectAssociations(this.projectId);
     }
   }
 
   handleAssociationSelected(association: AssociationProjCollab) {
-    this.collaboratorStateService.setSelectedAssociation(association);
+    this.associationProjCollabStateService.setSelectedAssociation(association);
   }
 
 }
