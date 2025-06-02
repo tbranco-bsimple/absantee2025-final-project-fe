@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, Input, effect, OnChanges } from '@angular/core';
+import { Component, computed, Input, OnChanges } from '@angular/core';
 import { AssociationProjCollab } from '../model/association-proj-collab';
 import { AssociationProjCollabStateService } from '../state/association-proj-collab-state.service';
 
@@ -18,14 +18,6 @@ export class AssociationProjCollabComponent implements OnChanges {
   @Input() projectId!: string;
 
   constructor(private associationProjCollabStateService: AssociationProjCollabStateService) {
-    effect(() => {
-      if (this.collaboratorId) {
-        this.associationProjCollabStateService.loadCollaboratorAssociations(this.collaboratorId);
-      }
-      if (this.projectId) {
-        this.associationProjCollabStateService.loadProjectAssociations(this.projectId);
-      }
-    });
   }
 
   ngOnChanges() {

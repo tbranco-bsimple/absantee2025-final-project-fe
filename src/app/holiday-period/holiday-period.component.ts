@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, Input, effect, OnChanges } from '@angular/core';
+import { Component, computed, Input, OnChanges } from '@angular/core';
 import { HolidayPeriod } from '../model/holiday-period';
 import { CollaboratorStateService } from '../state/collaborator-state.service';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -22,12 +22,6 @@ export class HolidayPeriodComponent implements OnChanges {
   });
 
   constructor(private collaboratorStateService: CollaboratorStateService) {
-    effect(() => {
-      if (this.collaboratorId) {
-        const print = this.collaboratorStateService.loadCollaboratorHolidays(this.collaboratorId);
-        console.log('Holiday periods loaded:', print);
-      }
-    });
   }
 
   ngOnChanges() {
