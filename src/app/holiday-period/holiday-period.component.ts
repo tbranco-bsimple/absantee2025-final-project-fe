@@ -33,6 +33,7 @@ export class HolidayPeriodComponent implements OnChanges {
   ngOnChanges() {
     if (this.collaboratorId) {
       this.collaboratorStateService.loadCollaboratorHolidays(this.collaboratorId);
+      console.log('holiday peeriods on changes', this.collaboratorId);
     }
   }
 

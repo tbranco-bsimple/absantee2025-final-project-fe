@@ -2,6 +2,7 @@ import { Injectable, signal } from '@angular/core';
 import { Collaborator } from '../model/collaborator';
 import { CollaboratorApiService } from '../service-api/collaborator-api.service';
 import { HolidayPeriod } from '../model/holiday-period';
+import { CreateCollaborator } from '../model/create-collaborator';
 
 @Injectable({
     providedIn: 'root',
@@ -43,8 +44,18 @@ export class CollaboratorStateService {
     setSelectedCollaborator(collaborator: Collaborator | null): void {
         this._collaboratorDetails.set(collaborator);
     }
+
     setSelectedHolidayPeriod(holidayPeriod: HolidayPeriod | null): void {
         this._collaboratorHolidayDetails.set(holidayPeriod);
+    }
+
+    addCollaborator(newCollaborator: CreateCollaborator): void {
+        this.collaboratorApiService.addCollaborator(newCollaborator).subscribe({
+            next: (newCollab: Collaborator) => {
+                this._collaborators.update(list => [...list, newCollab]);
+            },
+            error: (err) => console.error('Failed to add holiday period:', err)
+        });
     }
 
     addHolidayPeriod(collabId: string, initDate: string, finalDate: string): void {
@@ -57,20 +68,28 @@ export class CollaboratorStateService {
     }
 
     updateCollaborator(newCollaborator: Collaborator): void {
-        this._collaborators.update(list =>
-            list.map(c => c.collabId === newCollaborator.collabId ? { ...newCollaborator } : c)
-        );
-        if (this._collaboratorDetails()?.collabId === newCollaborator.collabId) {
-            this._collaboratorDetails.set({ ...newCollaborator });
-        }
+        this.collaboratorApiService.updateCollaborator(newCollaborator).subscribe({
+            next: (updatedCollaborator) => {
+                this._collaborators.update(list =>
+                    list.map(collaborator =>
+                        collaborator.collabId === updatedCollaborator.collabId ? updatedCollaborator : collaborator
+                    )
+                );
+            },
+            error: (err) => console.error('Failed to update collaborator:', err)
+        });
     }
 
-    updateHolidayPeriod(newHolidayPeriod: HolidayPeriod): void {
-        this._collaboratorHolidays.update(list =>
-            list.map(h => h.id === newHolidayPeriod.id ? { ...newHolidayPeriod } : h)
-        );
-        if (this._collaboratorHolidayDetails()?.id === newHolidayPeriod.id) {
-            this._collaboratorHolidayDetails.set({ ...newHolidayPeriod });
-        }
+    updateHolidayPeriod(collaboratorId: string, updatedHolidayPeriod: HolidayPeriod): void {
+        this.collaboratorApiService.updateCollaboratorHoliday(collaboratorId, updatedHolidayPeriod).subscribe({
+            next: (updatedHoliday) => {
+                this._collaboratorHolidays.update(list =>
+                    list.map(holiday =>
+                        holiday.id === updatedHoliday.id ? updatedHoliday : holiday
+                    )
+                );
+            },
+            error: (err) => console.error('Failed to update holiday period:', err)
+        });
     }
 }

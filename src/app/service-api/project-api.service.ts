@@ -15,16 +15,12 @@ export class ProjectApiService {
     constructor(private httpClient: HttpClient) { }
 
     getProjects(): Observable<Project[]> {
+        console.log('Fetching projects from API');
         return this.httpClient.get<Project[]>(this.url);
     }
 
-    getProjectById(id: number): Observable<Project> {
-        return this.httpClient.get<Project>(this.url + id);
-    }
-
     getProjectAssociations(id: string): Observable<AssociationProjCollab[]> {
-        const res = this.httpClient.get<AssociationProjCollab[]>(this.url + id + '/associations');
-        res.subscribe(data => console.log('associations', data));
-        return res;
+        console.log('Fetching associations for project:', id);
+        return this.httpClient.get<AssociationProjCollab[]>(this.url + id + '/associations');
     }
 }

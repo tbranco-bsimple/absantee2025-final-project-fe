@@ -21,6 +21,7 @@ export class HolidayPeriodDetailsComponent implements OnDestroy {
 
   constructor(private collaboratorStateService: CollaboratorStateService) {
     effect(() => {
+      console.log('HolidayPeriodDetailsComponent initialized with collaboratorId:', this.collaboratorId);
       const holidayPeriod = this.holidayPeriodDetails();
       this.isEditing = false;
       this.localHolidayPeriod = holidayPeriod ? structuredClone(holidayPeriod) : null;
@@ -38,12 +39,23 @@ export class HolidayPeriodDetailsComponent implements OnDestroy {
 
   onEdit(): void {
     if (this.localHolidayPeriod) {
-      this.collaboratorStateService.updateHolidayPeriod(this.localHolidayPeriod);
+      console.log('ID COLLAB ON EDIT FUNC', this.collaboratorId);
+      this.collaboratorStateService.updateHolidayPeriod(this.collaboratorId, this.localHolidayPeriod);
       this.collaboratorStateService.setSelectedHolidayPeriod(null);
       this.isEditing = false;
     }
   }
   onCancel(): void {
     this.isEditing = false;
+  }
+
+  hasChanges(): boolean {
+    const original = this.holidayPeriodDetails();
+    const edited = this.localHolidayPeriod;
+
+    if (!original || !edited) return false;
+
+    return original.periodDate.initDate !== edited.periodDate.initDate ||
+      original.periodDate.finalDate !== edited.periodDate.finalDate;
   }
 }

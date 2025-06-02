@@ -19,7 +19,7 @@
             End Date:
             <input type="date" [(ngModel)]="localHolidayPeriod!.periodDate.finalDate" />
         </label>
-        <button (click)="onEdit()">Confirm</button>
+        <button (click)="onEdit()" [disabled]="!hasChanges()">Confirm</button>
         <button (click)="onCancel()">Cancel</button>
     </div>
     }
