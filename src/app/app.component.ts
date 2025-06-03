@@ -1,12 +1,11 @@
 import { Component, computed } from '@angular/core';
-import { CollaboratorsComponent } from "./collaborators/collaborators.component";
-import { CollaboratorDetailsComponent } from './collaborator-details/collaborator-details.component';
-import { ProjectsComponent } from './projects/projects.component';
-import { ProjectStateService } from './state/project-state.service';
-import { ProjectDetailsComponent } from './project-details/project-details.component';
-import { ProjectTableComponent } from "./project-table/project-table.component";
+import { CollaboratorsComponent } from './collaborators/collaborators/collaborators.component';
+import { CollaboratorDetailsComponent } from './collaborators/collaborator-details/collaborator-details.component';
+import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
+import { ProjectsComponent } from './projects/projects/projects.component';
+import { ProjectStateService } from './projects/project-state.service';
 import { HeaderComponent } from './header/header.component';
-import { CollaboratorStateService } from './state/collaborator-state.service';
+import { CollaboratorStateService } from './collaborators/collaborator-state.service';
 
 
 @Component({
@@ -14,7 +13,7 @@ import { CollaboratorStateService } from './state/collaborator-state.service';
   imports: [
     HeaderComponent,
     CollaboratorsComponent, CollaboratorDetailsComponent,
-    /* ProjectsComponent, */ ProjectDetailsComponent, ProjectTableComponent,
+    /* ProjectsBulletsComponent, */ ProjectDetailsComponent, ProjectsComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

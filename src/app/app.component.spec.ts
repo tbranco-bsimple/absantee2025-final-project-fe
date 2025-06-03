@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { CollaboratorDetailsComponent } from './collaborator-details/collaborator-details.component';
-import { CollaboratorsComponent } from './collaborators/collaborators.component';
+import { CollaboratorDetailsComponent } from './holidays/collaborator-details/collaborator-details.component';
+import { CollaboratorsComponent } from './holidays/collaborators/collaborators.component';
 import { By } from '@angular/platform-browser';
-import { ProjectsComponent } from './projects/projects.component';
-import { ProjectTableComponent } from './project-table/project-table.component';
-import { ProjectDetailsComponent } from './project-details/project-details.component';
-import { ProjectApiService } from './service-api/project-api.service';
-import { ProjectStateService } from './state/project-state.service';
+import { ProjectsComponent } from './holidays/projects-bullets/projects-bullets.component';
+import { ProjectTableComponent } from './holidays/projects/projects.component';
+import { ProjectDetailsComponent } from './holidays/project-details/project-details.component';
+import { ProjectApiService } from './projects/project-api.service';
+import { ProjectStateService } from './projects/project-state.service';
 import { signal, WritableSignal } from '@angular/core';
-import { Project } from './model/project';
+import { Project } from './projects/project';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
