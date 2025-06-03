@@ -1,12 +1,12 @@
-<app-header (tabSelected)="onTabSelected($event)"></app-header>
+<app-header (tabSelected)="onTabSelected($event)" />
 
 @if (activeTab === 'collaborators') {
-<app-collaborators></app-collaborators>
-<app-collaborator-details></app-collaborator-details>
+<app-collaborators />
+<app-collaborator-details />
 }
 
 @if (activeTab === 'projects') {
 <!-- <app-projects></app-projects> -->
-<app-project-table></app-project-table>
-<app-project-details></app-project-details>
+<app-project-table />
+<app-project-details />
 }
