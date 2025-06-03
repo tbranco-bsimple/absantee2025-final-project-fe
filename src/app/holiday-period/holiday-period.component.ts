@@ -67,6 +67,7 @@ export class HolidayPeriodComponent implements OnChanges {
 
     this.collaboratorStateService.addHolidayPeriod(this.collaboratorId, initDate, finalDate);
     this.holidaysForm.clear();
+    this.showButtons = false;
   }
 
   onCancel() {
