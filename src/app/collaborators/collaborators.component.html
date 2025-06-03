@@ -25,8 +25,9 @@
     </tbody>
 </table>
 <button class="add-collaborator-button" (click)="createEmptyCollaborator()">Add Collaborator</button>
+@if (showButtons) {
 <form [formGroup]="form" class="collaborator-form">
-    <div formArrayName="collaborators">
+    <div formArrayName="collaborators" class="add-collaborators-form">
         <div *ngFor="let group of collaboratorsForm.controls; let i = index" [formGroupName]="i" class="form-row">
             <label>
                 Name:
@@ -54,12 +55,13 @@
             </label>
         </div>
 
-        @if (showButtons) {
+
         <button type="button" (click)="submitNewCollaborator()">Confirm</button>
         <button type="button" (click)="onCancel()">Cancel</button>
-        }
+
     </div>
 </form>
+}
 
 @if (selectedHolidaysCollaboratorId) {
 <app-holiday-period [collaboratorId]="selectedHolidaysCollaboratorId" />
