@@ -59,14 +59,15 @@
         <button type="button" (click)="onCancel()">Cancel</button>
         }
     </div>
+</form>
 
-    @if (selectedHolidaysCollaboratorId) {
-    <app-holiday-period [collaboratorId]="selectedHolidaysCollaboratorId" />
-    <app-holiday-period-details [collaboratorId]="selectedHolidaysCollaboratorId"></app-holiday-period-details>
-    }
+@if (selectedHolidaysCollaboratorId) {
+<app-holiday-period [collaboratorId]="selectedHolidaysCollaboratorId" />
+<app-holiday-period-details [collaboratorId]="selectedHolidaysCollaboratorId"></app-holiday-period-details>
+}
 
-    @if (selectedAssociationsCollaboratorId) {
-    <app-association-proj-collab [collaboratorId]="selectedAssociationsCollaboratorId" />
-    <app-association-proj-collab-details
-        [collaboratorId]="selectedAssociationsCollaboratorId"></app-association-proj-collab-details>
-    }
+@if (selectedAssociationsCollaboratorId) {
+<app-association-proj-collab [collaboratorId]="selectedAssociationsCollaboratorId" />
+<app-association-proj-collab-details
+    [collaboratorId]="selectedAssociationsCollaboratorId"></app-association-proj-collab-details>
+}

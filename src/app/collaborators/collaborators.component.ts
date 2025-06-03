@@ -63,6 +63,9 @@ export class CollaboratorsComponent {
 
   createEmptyCollaborator() {
     this.showButtons = true;
+    this.selectedHolidaysCollaboratorId = null;
+    this.selectedAssociationsCollaboratorId = null;
+    this.collaboratorStateService.setSelectedCollaborator(null);
     this.collaboratorsForm.push(
       new FormGroup({
         names: new FormControl(''),
