@@ -4,19 +4,24 @@ import { CommonModule } from '@angular/common';
 import { ProjectStateService } from '../project-state.service';
 import { AssociationProjCollabComponent } from '../../associations/association-proj-collab/association-proj-collab.component';
 import { AssociationProjCollabDetailsComponent } from '../../associations/association-proj-collab-details/association-proj-collab-details.component';
+import { ProjectFormComponent } from '../project-form/project-form.component';
+import { ProjectDetailsComponent } from '../project-details/project-details.component';
 
 @Component({
   selector: 'app-projects',
-  imports: [CommonModule, AssociationProjCollabComponent, AssociationProjCollabDetailsComponent],
+  imports: [CommonModule, AssociationProjCollabComponent, AssociationProjCollabDetailsComponent, ProjectFormComponent, ProjectDetailsComponent],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.css'
 })
 export class ProjectsComponent {
 
   projects = computed(() => this.projectStateService.projects());
+  projectDetails = computed(() => this.projectStateService.projectDetails());
   selectedProjectId: string | null = null;
 
-  constructor(private projectStateService: ProjectStateService) { }
+  constructor(private projectStateService: ProjectStateService) {
+    this.projectStateService.loadProjects();
+  }
 
   handleProjectSelected(project: Project) {
     this.projectStateService.setSelectedProject(project);

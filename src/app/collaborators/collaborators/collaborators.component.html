@@ -63,6 +63,10 @@
 </form>
 }
 
+@if (collaboratorSelected()) {
+<app-collaborator-details></app-collaborator-details>
+}
+
 @if (selectedHolidaysCollaboratorId) {
 <app-holiday-period [collaboratorId]="selectedHolidaysCollaboratorId" />
 <app-holiday-period-details [collaboratorId]="selectedHolidaysCollaboratorId"></app-holiday-period-details>

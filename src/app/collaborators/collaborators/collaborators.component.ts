@@ -8,16 +8,18 @@ import { HolidayPeriodDetailsComponent } from "../../holidays/holiday-period-det
 import { AssociationProjCollabDetailsComponent } from '../../associations/association-proj-collab-details/association-proj-collab-details.component';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CreateCollaborator } from '../create-collaborator';
+import { CollaboratorDetailsComponent } from '../collaborator-details/collaborator-details.component';
 
 @Component({
   selector: 'app-collaborators',
-  imports: [CommonModule, ReactiveFormsModule, AssociationProjCollabComponent, AssociationProjCollabDetailsComponent, HolidayPeriodComponent, HolidayPeriodDetailsComponent],
+  imports: [CommonModule, ReactiveFormsModule, AssociationProjCollabComponent, AssociationProjCollabDetailsComponent, HolidayPeriodComponent, HolidayPeriodDetailsComponent, CollaboratorDetailsComponent],
   templateUrl: './collaborators.component.html',
   styleUrl: './collaborators.component.css'
 })
 export class CollaboratorsComponent {
 
   collaborators = computed(() => this.collaboratorStateService.collaborators());
+  collaboratorSelected = computed(() => this.collaboratorStateService.collaboratorDetails());
   selectedAssociationsCollaboratorId: string | null = null;
   selectedHolidaysCollaboratorId: string | null = null;
   showButtons = false;
@@ -26,7 +28,9 @@ export class CollaboratorsComponent {
     collaborators: new FormArray<FormGroup<{ names: FormControl<string>, surnames: FormControl<string>, email: FormControl<string>, deactivationDate: FormControl<string>, _initDate: FormControl<string>, _finalDate: FormControl<string> }>>([])
   })
 
-  constructor(private collaboratorStateService: CollaboratorStateService) { }
+  constructor(private collaboratorStateService: CollaboratorStateService) {
+    this.collaboratorStateService.loadCollaborators();
+  }
 
   get collaboratorsForm(): FormArray<FormGroup<{ names: FormControl<string>, surnames: FormControl<string>, email: FormControl<string>, deactivationDate: FormControl<string>, _initDate: FormControl<string>, _finalDate: FormControl<string> }>> {
     return this.form.get('collaborators') as FormArray;

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Project } from './project';
 import { environment } from '../../environments/environment';
 import { AssociationProjCollab } from '../associations/association-proj-collab';
+import { CreateProject } from './create-project';
 
 @Injectable({
     providedIn: 'root',
@@ -14,7 +15,7 @@ export class ProjectApiService {
 
     constructor(private httpClient: HttpClient) { }
 
-    addProject(project: Project): Observable<Project> {
+    addProject(project: CreateProject): Observable<Project> {
         console.log('Adding project:', project);
         return this.httpClient.post<Project>(this.url, project);
     }

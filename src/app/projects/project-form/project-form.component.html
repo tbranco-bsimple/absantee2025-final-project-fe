@@ -1,1 +1,30 @@
-<p>project-form works!</p>
+<button class="add-project-button" (click)="openProjectForm()">Add Project</button>
+
+@if (showProjectForm) {
+<form [formGroup]="projectForm" class="project-form">
+    <div class="form-row">
+        <label>
+            Title:
+            <input type="text" formControlName="title">
+        </label>
+
+        <label>
+            Acronym:
+            <input type="text" formControlName="acronym">
+        </label>
+
+        <label>
+            Init Date:
+            <input type="date" formControlName="initDate">
+        </label>
+
+        <label>
+            End Date:
+            <input type="date" formControlName="finalDate">
+        </label>
+    </div>
+
+    <button type="button" (click)="submitProject()">Confirm</button>
+    <button type="button" (click)="cancel()">Cancel</button>
+</form>
+}

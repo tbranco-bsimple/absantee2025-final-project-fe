@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { Project } from './project';
 import { ProjectApiService } from './project-api.service';
+import { CreateProject } from './create-project';
 
 @Injectable({
     providedIn: 'root',
@@ -28,7 +29,7 @@ export class ProjectStateService {
         });
     }
 
-    addProject(newProject: Project): void {
+    addProject(newProject: CreateProject): void {
         this.projectApiService.addProject(newProject).subscribe({
             next: (newProj: Project) => {
                 this._projects.update(list => [...list, newProj]);

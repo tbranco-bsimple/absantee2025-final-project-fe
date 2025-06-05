@@ -1,12 +1,2 @@
-<app-header (tabSelected)="onTabSelected($event)" />
-
-@if (activeTab === 'collaborators') {
-<app-collaborators />
-<app-collaborator-details />
-}
-
-@if (activeTab === 'projects') {
-<!-- <app-projects-bullets /> -->
-<app-projects />
-<app-project-details />
-}
+<app-header />
+<router-outlet></router-outlet>

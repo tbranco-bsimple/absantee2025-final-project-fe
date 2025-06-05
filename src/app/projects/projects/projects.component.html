@@ -22,6 +22,12 @@
     </tbody>
 </table>
 
+<app-project-form />
+
+@if (projectDetails()){
+<app-project-details></app-project-details>
+}
+
 @if (selectedProjectId){
 <app-association-proj-collab [projectId]="selectedProjectId" />
 <app-association-proj-collab-details [projectId]="selectedProjectId"></app-association-proj-collab-details>
