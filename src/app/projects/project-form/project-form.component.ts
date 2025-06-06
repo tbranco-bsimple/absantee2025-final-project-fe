@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ProjectStateService } from '../project-state.service';
+import { ProjectForm } from '../project-form';
+import { PeriodDateForm } from '../../model/period-date-form';
 
 @Component({
   selector: 'app-project-form',
@@ -12,26 +14,28 @@ import { ProjectStateService } from '../project-state.service';
 })
 export class ProjectFormComponent {
 
-  projectsStateService = inject(ProjectStateService)
+  projectStateService = inject(ProjectStateService)
 
   projectForm: FormGroup;
   showProjectForm = false;
 
   constructor() {
-    this.projectForm = new FormGroup({
+    this.projectForm = new FormGroup<ProjectForm>({
       title: new FormControl<string>(''),
       acronym: new FormControl<string>(''),
-      initDate: new FormControl<string>(this.formatDate(new Date().toDateString())),
-      finalDate: new FormControl<string>(this.formatDate(new Date().toDateString()))
+      periodDate: new FormGroup<PeriodDateForm>({
+        initDate: new FormControl<string>(this.formatDate(new Date().toDateString())),
+        finalDate: new FormControl<string>(this.formatDate(new Date().toDateString()))
+      })
     });
-  }
-
-  openProjectForm() {
-    this.showProjectForm = true;
   }
 
   private formatDate(date: string): string {
     return new Date(date).toISOString().split('T')[0];
+  }
+
+  openProjectForm() {
+    this.showProjectForm = true;
   }
 
   submitProject() {
@@ -50,12 +54,12 @@ export class ProjectFormComponent {
       }
     };
 
-    this.projectsStateService.addProject(createProject);
+    this.projectStateService.addProject(createProject);
     this.projectForm.reset();
     this.showProjectForm = false;
   }
 
-  cancel() {
+  onCancel() {
     this.projectForm.reset();
     this.showProjectForm = false;
   }

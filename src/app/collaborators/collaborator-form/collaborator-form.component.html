@@ -1,0 +1,33 @@
+<form [formGroup]="collaboratorForm" class="collaborator-form">
+    <div class="form-row">
+        <label>
+            Name:
+            <input type="text" formControlName="names">
+        </label>
+        <label>
+            Surnames:
+            <input type="text" formControlName="surnames">
+        </label>
+        <label>
+            Email:
+            <input type="email" formControlName="email">
+        </label>
+        <label>
+            Deactivation Date:
+            <input type="date" formControlName="deactivationDate">
+        </label>
+        <div formGroupName="periodDateTime">
+            <label>
+                Start Date:
+                <input type="date" formControlName="_initDate">
+            </label>
+            <label>
+                End Date:
+                <input type="date" formControlName="_finalDate">
+            </label>
+        </div>
+    </div>
+
+    <button type="button" (click)="submitCollaborator()">Confirm</button>
+    <button type="button" (click)="onCancel()">Cancel</button>
+</form>

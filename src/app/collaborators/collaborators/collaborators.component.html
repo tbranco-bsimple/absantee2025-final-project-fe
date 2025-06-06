@@ -12,7 +12,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let collaborator of collaborators()" (click)="handleCollaboratorSelected(collaborator)">
+        <tr *ngFor="let collaborator of collaborators()" [routerLink]="['details', collaborator.collabId]"
+            (click)="handleCollaboratorSelected(collaborator)">
             <td>{{ collaborator.names }} {{ collaborator.surnames }}</td>
             <td>{{ collaborator.email }}</td>
             <td>{{ collaborator.collaboratorPeriod._initDate | date: 'yyyy-MM-dd' }}</td>
@@ -24,48 +25,12 @@
         </tr>
     </tbody>
 </table>
-<button class="add-collaborator-button" (click)="createEmptyCollaborator()">Add Collaborator</button>
-@if (showButtons) {
-<form [formGroup]="form" class="collaborator-form">
-    <div formArrayName="collaborators" class="add-collaborators-form">
-        <div *ngFor="let group of collaboratorsForm.controls; let i = index" [formGroupName]="i" class="form-row">
-            <label>
-                Name:
-                <input type="text" formControlName="names">
-            </label>
-            <label>
-                Surnames:
-                <input type="text" formControlName="surnames">
-            </label>
-            <label>
-                Email:
-                <input type="email" formControlName="email">
-            </label>
-            <label>
-                Deactivation Date:
-                <input type="date" formControlName="deactivationDate">
-            </label>
-            <label>
-                Start Date:
-                <input type="date" formControlName="_initDate">
-            </label>
-            <label>
-                End Date:
-                <input type="date" formControlName="_finalDate">
-            </label>
-        </div>
 
 
-        <button type="button" (click)="submitNewCollaborator()">Confirm</button>
-        <button type="button" (click)="onCancel()">Cancel</button>
+<button class="add-collaborator-button" [routerLink]="['add']">Add Collaborator</button>
 
-    </div>
-</form>
-}
+<router-outlet></router-outlet>
 
-@if (collaboratorSelected()) {
-<app-collaborator-details></app-collaborator-details>
-}
 
 @if (selectedHolidaysCollaboratorId) {
 <app-holiday-period [collaboratorId]="selectedHolidaysCollaboratorId" />

@@ -1,53 +1,55 @@
-import { Component, OnDestroy, computed, effect } from '@angular/core';
+import { Component, OnDestroy, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Collaborator } from '../collaborator';
-import { CollaboratorStateService } from '../collaborator-state.service';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-collaborator-details',
-  imports: [CommonModule, FormsModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './collaborator-details.component.html',
   styleUrl: './collaborator-details.component.css'
 })
-
-export class CollaboratorDetailsComponent implements OnDestroy {
-
-  collaboratorDetails = computed(() => this.collaboratorStateService.collaboratorDetails());
-
-  isEditing = false;
+export class CollaboratorDetailsComponent implements OnInit, OnDestroy {
+  collaborator: Collaborator | null = null;
   localCollaborator: Collaborator | null = null;
+  isEditing = false;
 
-  constructor(private collaboratorStateService: CollaboratorStateService) {
-    effect(() => {
-      const collaborator = this.collaboratorDetails();
-      this.isEditing = false;
-      this.localCollaborator = collaborator ? structuredClone(collaborator) : null;
+  private route = inject(ActivatedRoute);
+  private subscription: Subscription | null = null;
+
+  ngOnInit(): void {
+    this.subscription = this.route.data.subscribe(data => {
+      const resolved = data['collaborator'];
+      if (resolved) {
+        this.collaborator = resolved;
+        this.isEditing = false;
+        this.localCollaborator = structuredClone(resolved);
+      }
     });
   }
 
-  ngOnChanges(): void {
-    this.isEditing = false;
-  }
-
   ngOnDestroy(): void {
-    this.collaboratorStateService.setSelectedCollaborator(null);
+    this.subscription?.unsubscribe();
   }
 
   edit() {
     this.isEditing = true;
-    this.localCollaborator = this.collaboratorDetails() ? structuredClone(this.collaboratorDetails()) : null;
+    this.localCollaborator = this.collaborator ? structuredClone(this.collaborator) : null;
   }
 
   onEdit() {
     if (this.localCollaborator) {
-      this.collaboratorStateService.updateCollaborator(this.localCollaborator);
-      this.collaboratorStateService.setSelectedCollaborator(null);
+      this.collaborator = structuredClone(this.localCollaborator);
       this.isEditing = false;
     }
   }
+
   onCancel() {
     this.isEditing = false;
+    this.localCollaborator = this.collaborator ? structuredClone(this.collaborator) : null;
   }
-}
 
+}

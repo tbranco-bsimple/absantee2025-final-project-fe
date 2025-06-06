@@ -1,22 +1,20 @@
-@if (collaboratorDetails()){
+@if (collaborator) {
 <div class="collaborator-details">
-    @if (!isEditing){
+    @if (!isEditing) {
     <div>
-        <p><strong>ID:</strong> {{ collaboratorDetails()!.collabId }}</p>
-        <p><strong>User ID:</strong> {{ collaboratorDetails()!.userId }}</p>
-        <p><strong>First Name:</strong> {{ collaboratorDetails()!.names }}</p>
-        <p><strong>Last Name:</strong> {{ collaboratorDetails()!.surnames }}</p>
-        <p><strong>Email:</strong> {{ collaboratorDetails()!.email }}</p>
-        <p><strong>Collab Start Date:</strong> {{ collaboratorDetails()!.collaboratorPeriod._initDate | date:
-            'yyyy-MM-dd' }}</p>
-        <p><strong>Collab End Date:</strong> {{ collaboratorDetails()!.collaboratorPeriod._finalDate | date:
-            'yyyy-MM-dd' }}</p>
-        <p><strong>User Start Date:</strong> {{ collaboratorDetails()!.userPeriod._initDate | date: 'yyyy-MM-dd' }}</p>
-        <p><strong>User End Date:</strong> {{ collaboratorDetails()!.userPeriod._finalDate | date: 'yyyy-MM-dd' }}</p>
+        <p><strong>ID:</strong> {{ collaborator.collabId }}</p>
+        <p><strong>User ID:</strong> {{ collaborator.userId }}</p>
+        <p><strong>First Name:</strong> {{ collaborator.names }}</p>
+        <p><strong>Last Name:</strong> {{ collaborator.surnames }}</p>
+        <p><strong>Email:</strong> {{ collaborator.email }}</p>
+        <p><strong>Collab Start Date:</strong> {{ collaborator.collaboratorPeriod._initDate | date: 'yyyy-MM-dd' }}</p>
+        <p><strong>Collab End Date:</strong> {{ collaborator.collaboratorPeriod._finalDate | date: 'yyyy-MM-dd' }}</p>
+        <p><strong>User Start Date:</strong> {{ collaborator.userPeriod._initDate | date: 'yyyy-MM-dd' }}</p>
+        <p><strong>User End Date:</strong> {{ collaborator.userPeriod._finalDate | date: 'yyyy-MM-dd' }}</p>
         <button (click)="edit()">Edit</button>
+        <button [routerLink]="['/collaborators']">Close</button>
     </div>
-    }
-    @else{
+    } @else {
     <div>
         <p><strong>ID:</strong> {{ localCollaborator!.collabId }}</p>
         <p><strong>User ID:</strong> {{ localCollaborator!.userId }}</p>

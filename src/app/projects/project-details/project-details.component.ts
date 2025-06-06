@@ -1,8 +1,9 @@
-import { Component, computed, effect, OnDestroy } from '@angular/core';
+import { Component, computed, effect, inject, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Project } from '../project';
 import { ProjectStateService } from '../project-state.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-project-details',
@@ -17,6 +18,9 @@ export class ProjectDetailsComponent implements OnDestroy {
 
   isEditing = false;
   localProject: Project | null = null;
+
+  private route = inject(ActivatedRoute);
+  projectId = this.route.snapshot.paramMap.get('id');
 
   constructor(private projectStateService: ProjectStateService) {
     effect(() => {
@@ -44,5 +48,9 @@ export class ProjectDetailsComponent implements OnDestroy {
   }
   onCancel() {
     this.isEditing = false;
+  }
+
+  onClose() {
+    this.projectStateService.setSelectedProject(null);
   }
 }

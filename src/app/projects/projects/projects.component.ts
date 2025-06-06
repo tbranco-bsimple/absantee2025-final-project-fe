@@ -5,11 +5,11 @@ import { ProjectStateService } from '../project-state.service';
 import { AssociationProjCollabComponent } from '../../associations/association-proj-collab/association-proj-collab.component';
 import { AssociationProjCollabDetailsComponent } from '../../associations/association-proj-collab-details/association-proj-collab-details.component';
 import { ProjectFormComponent } from '../project-form/project-form.component';
-import { ProjectDetailsComponent } from '../project-details/project-details.component';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-projects',
-  imports: [CommonModule, AssociationProjCollabComponent, AssociationProjCollabDetailsComponent, ProjectFormComponent, ProjectDetailsComponent],
+  imports: [CommonModule, RouterModule, ProjectFormComponent, AssociationProjCollabComponent, AssociationProjCollabDetailsComponent],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.css'
 })

@@ -11,7 +11,8 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let project of projects()" (click)="handleProjectSelected(project)">
+        <tr *ngFor="let project of projects()" [routerLink]="['details', project.id]"
+            (click)="handleProjectSelected(project)">
             <td>{{ project.title }}</td>
             <td>{{ project.acronym }}</td>
             <td>{{ project.periodDate.initDate | date: 'yyyy-MM-dd' }}</td>
@@ -22,10 +23,10 @@
     </tbody>
 </table>
 
-<app-project-form />
-
-@if (projectDetails()){
-<app-project-details></app-project-details>
+@if (!projectDetails()){
+<app-project-form></app-project-form>
+} @else {
+<router-outlet></router-outlet>
 }
 
 @if (selectedProjectId){
