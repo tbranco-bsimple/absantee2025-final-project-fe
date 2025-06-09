@@ -12,9 +12,6 @@ export class CollaboratorStateService {
     private _collaborators = signal<Collaborator[]>([]);
     readonly collaborators = this._collaborators.asReadonly();
 
-    private _collaboratorDetails = signal<Collaborator | null>(null);
-    readonly collaboratorDetails = this._collaboratorDetails.asReadonly();
-
     private _collaboratorHolidays = signal<HolidayPeriod[]>([]);
     readonly collaboratorHolidays = this._collaboratorHolidays.asReadonly();
 
@@ -22,10 +19,6 @@ export class CollaboratorStateService {
     readonly collaboratorHolidayDetails = this._collaboratorHolidayDetails.asReadonly();
 
     constructor(private collaboratorApiService: CollaboratorApiService) { }
-
-    setSelectedCollaborator(collaborator: Collaborator | null): void {
-        this._collaboratorDetails.set(collaborator);
-    }
 
     setSelectedHolidayPeriod(holidayPeriod: HolidayPeriod | null): void {
         this._collaboratorHolidayDetails.set(holidayPeriod);
@@ -38,6 +31,15 @@ export class CollaboratorStateService {
                 console.error('Error loading collaborators:', err);
             }
         });
+    }
+
+    loadCollaboratorById(id: string): Collaborator {
+        const collab = this._collaborators().find(collaborator => collaborator.collabId === id)
+        if (collab == undefined) {
+            console.error('Collaborator not found in state:', id);
+            throw new Error(`Collaborator with ID ${id} not found in state.`);
+        }
+        return collab;
     }
 
     loadCollaboratorHolidays(id: string): void {

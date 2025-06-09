@@ -4,10 +4,11 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { PeriodDateTimeForm } from '../../model/period-date-time-form';
 import { CollaboratorStateService } from '../collaborator-state.service';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-collaborator-form',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './collaborator-form.component.html',
   styleUrl: './collaborator-form.component.css'
 })

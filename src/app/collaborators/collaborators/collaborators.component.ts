@@ -17,7 +17,6 @@ import { RouterModule } from '@angular/router';
 export class CollaboratorsComponent {
 
   collaborators = computed(() => this.collaboratorStateService.collaborators());
-  collaboratorDetails = computed(() => this.collaboratorStateService.collaboratorDetails());
   selectedAssociationsCollaboratorId: string | null = null;
   selectedHolidaysCollaboratorId: string | null = null;
 
@@ -26,7 +25,6 @@ export class CollaboratorsComponent {
   }
 
   handleCollaboratorSelected(collaborator: Collaborator): void {
-    this.collaboratorStateService.setSelectedCollaborator(collaborator);
     this.selectedAssociationsCollaboratorId = null;
     this.selectedHolidaysCollaboratorId = null;
   }
@@ -34,14 +32,12 @@ export class CollaboratorsComponent {
   openAssociations(collaboratorId: string) {
     this.selectedAssociationsCollaboratorId = collaboratorId;
     this.selectedHolidaysCollaboratorId = null;
-    this.collaboratorStateService.setSelectedCollaborator(null);
 
   }
 
   openHolidays(collaboratorId: string) {
     this.selectedHolidaysCollaboratorId = collaboratorId;
     this.selectedAssociationsCollaboratorId = null;
-    this.collaboratorStateService.setSelectedCollaborator(null);
   }
 
 }

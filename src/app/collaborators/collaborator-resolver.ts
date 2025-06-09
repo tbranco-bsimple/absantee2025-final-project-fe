@@ -1,21 +1,20 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Collaborator } from './collaborator';
-import { CollaboratorApiService } from './collaborator-api.service';
+import { CollaboratorStateService } from './collaborator-state.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CollaboratorResolver implements Resolve<Collaborator> {
 
-    constructor(private service: CollaboratorApiService) { }
+    constructor(private service: CollaboratorStateService) { }
 
-    resolve(route: ActivatedRouteSnapshot): Observable<Collaborator> {
+    resolve(route: ActivatedRouteSnapshot): Collaborator {
         const id = route.paramMap.get('id');
         if (!id) {
             throw new Error('Collaborator ID is missing in route');
         }
-        return this.service.getCollaboratorById(id);
+        return this.service.loadCollaboratorById(id);
     }
 }
