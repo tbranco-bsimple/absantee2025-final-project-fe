@@ -1,12 +1,13 @@
-@if (holidayPeriodDetails()){
+@if (holidayPeriod){
 <div class="holiday-period-details
 -details">
     @if (!isEditing){
     <div>
-        <p><strong>ID:</strong> {{ holidayPeriodDetails()!.id }}</p>
-        <p><strong>Start Date:</strong> {{ holidayPeriodDetails()!.periodDate.initDate | date:'yyyy-MM-dd' }}</p>
-        <p><strong>End Date:</strong> {{ holidayPeriodDetails()!.periodDate.finalDate | date:'yyyy-MM-dd' }}</p>
+        <p><strong>ID:</strong> {{ holidayPeriod.id }}</p>
+        <p><strong>Start Date:</strong> {{ holidayPeriod.periodDate.initDate | date:'yyyy-MM-dd' }}</p>
+        <p><strong>End Date:</strong> {{ holidayPeriod.periodDate.finalDate | date:'yyyy-MM-dd' }}</p>
         <button (click)="edit()">Edit</button>
+        <button [routerLink]="['/holidays']">Close</button>
     </div>
     } @else {
     <div>
@@ -25,5 +26,5 @@
     }
 </div>
 } @else {
-<p></p>
+<p>HolidayPeriod no details</p>
 }

@@ -28,6 +28,9 @@
         </div>
     </div>
 
-    <button type="button" (click)="submitCollaborator()">Confirm</button>
-    <button [routerLink]="['/collaborators']">Close</button>
+    <button type="button" [routerLink]="['/collaborators']" (click)="submitCollaborator()"
+        [disabled]="collaboratorForm.invalid">
+        {{ this.serviceForm.isEditingCollaboratorForm() ? "Save" : "Add" }}</button>
+    <button
+        [routerLink]=" this.serviceForm.isEditingCollaboratorForm() ? ['/collaborators', this.serviceForm.isEditingCollaboratorForm()?.collabId] : ['/collaborators']">Close</button>
 </form>

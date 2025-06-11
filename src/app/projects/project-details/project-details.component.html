@@ -29,7 +29,7 @@
             End Date:
             <input type="date" [(ngModel)]="localProject!.periodDate.finalDate" />
         </label>
-        <button (click)="onEdit()">Confirm</button>
+        <button [routerLink]="['/projects']" (click)="onEdit()">Confirm</button>
         <button (click)="onCancel()">Cancel</button>
     </div>
     }

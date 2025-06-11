@@ -43,6 +43,11 @@ export class CollaboratorApiService {
         return this.httpClient.get<HolidayPeriod[]>(this.url + collaboratorId + '/holidayplan/holidayperiod');
     }
 
+    getCollaboratorHolidayById(collaboratorId: string, holidayId: string): Observable<HolidayPeriod> {
+        console.log('Fetching holiday by ID for collaborator:', collaboratorId, holidayId);
+        return this.httpClient.get<HolidayPeriod>(this.url + collaboratorId + '/holidayplan/holidayperiod/' + holidayId);
+    }
+
     getCollaboratorAssociations(collaboratorId: string): Observable<AssociationProjCollab[]> {
         console.log('Fetching associations for collaborator:', collaboratorId);
         return this.httpClient.get<AssociationProjCollab[]>(this.url + collaboratorId + '/associations');

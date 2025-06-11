@@ -22,13 +22,14 @@ export class AssociationProjCollabStateService {
         this._associationDetails.set(association);
     }
 
-    loadCollaboratorAssociations(id: string): void {
+    loadCollaboratorAssociations(id: string): AssociationProjCollab[] {
         this.collaboratorApiService.getCollaboratorAssociations(id).subscribe({
             next: (associations) => this._associations.set(associations),
             error: (err) => {
                 console.error('Error loading collaborator associations:', err);
             }
         });
+        return this._associations();
     }
 
     loadProjectAssociations(id: string): void {

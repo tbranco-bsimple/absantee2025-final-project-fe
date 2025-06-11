@@ -1,10 +1,12 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { CollaboratorForm } from '../collaborator-form';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { PeriodDateTimeForm } from '../../model/period-date-time-form';
-import { CollaboratorStateService } from '../collaborator-state.service';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { CollaboratorApiService } from '../collaborator-api.service';
+import { Collaborator } from '../collaborator';
+import { CollaboratorFormService } from './collaborator-form.service';
 
 @Component({
   selector: 'app-collaborator-form',
@@ -14,10 +16,9 @@ import { RouterLink } from '@angular/router';
 })
 export class CollaboratorFormComponent {
 
-  collaboratorStateService = inject(CollaboratorStateService);
-
+  serviceApi = inject(CollaboratorApiService);
+  serviceForm = inject(CollaboratorFormService);
   collaboratorForm: FormGroup;
-  showCollaboratorForm = false;
 
   constructor() {
     this.collaboratorForm = new FormGroup<CollaboratorForm>({
@@ -30,41 +31,74 @@ export class CollaboratorFormComponent {
         _finalDate: new FormControl<string>(this.formatDate(new Date().toDateString()))
       })
     });
+
+    effect(() => {
+      const collaborator = this.serviceForm.isEditingCollaboratorForm();
+      if (collaborator) {
+        const patch = {
+          ...collaborator,
+          deactivationDate: this.formatDate(collaborator.userPeriod._finalDate),
+          periodDateTime: {
+            _initDate: this.formatDate(collaborator.collaboratorPeriod._initDate),
+            _finalDate: this.formatDate(collaborator.collaboratorPeriod._finalDate),
+          }
+        };
+        this.collaboratorForm.patchValue(patch);
+        this.collaboratorForm.patchValue(collaborator);
+      } else {
+        this.collaboratorForm.reset();
+      }
+    });
   }
 
   private formatDate(date: string): string {
     return new Date(date).toISOString().split('T')[0];
   }
 
-  openCollaboratorForm() {
-    this.showCollaboratorForm = true;
-  }
-
   submitCollaborator() {
-    const { names, surnames, email, deactivationDate, periodDateTime } = this.collaboratorForm.value;
+    console.log("antes de enviar: ", this.collaboratorForm.value);
+    if (this.collaboratorForm.valid) {
+      console.log("Form is valid, submitting...");
+      const rawValue = this.collaboratorForm.value;
 
-    if (!names || !surnames || !email || !periodDateTime?._initDate || !periodDateTime?._finalDate) return;
+      const collaborator = {
+        ...this.serviceForm.isEditingCollaboratorForm(),
+        ...rawValue,
+        deactivationDate: new Date(rawValue.deactivationDate),
+        periodDateTime: {
+          _initDate: new Date(rawValue.periodDateTime._initDate),
+          _finalDate: new Date(rawValue.periodDateTime._finalDate)
+        }
+      };
 
-    console.log('Submitting collaborator:', { names, surnames, email, deactivationDate, periodDateTime });
+      if (this.serviceForm.isCreatingCollaboratorForm()) {
 
-    const createCollaborator = {
-      names,
-      surnames,
-      email,
-      deactivationDate,
-      periodDateTime: {
-        _initDate: this.formatDate(periodDateTime._initDate),
-        _finalDate: this.formatDate(periodDateTime._finalDate)
+        console.log("Creating collaborator: ", collaborator);
+
+        this.serviceApi.addCollaborator(collaborator).subscribe({
+          next: (createdCollaborator) => {
+            console.log("Created collaborator: ", createdCollaborator);
+            this.serviceForm.setCollaboratorCreated(createdCollaborator);
+            this.serviceForm.cancelCreatingCollaboratorForm();
+          }
+        })
+      } else if (this.serviceForm.isEditingCollaboratorForm()) {
+
+        this.serviceApi.updateCollaborator(collaborator).subscribe({
+          next: (updatedCollaborator) => {
+            console.log("Updated Project: ", updatedCollaborator);
+            this.serviceForm.setCollaboratorEdited(updatedCollaborator);
+            this.serviceForm.cancelEditingCollaboratorForm();
+          }
+        })
       }
-    };
-
-    this.collaboratorStateService.addCollaborator(createCollaborator);
-    this.collaboratorForm.reset();
-    this.showCollaboratorForm = false;
+      this.collaboratorForm.reset();
+    }
   }
 
   onCancel() {
     this.collaboratorForm.reset();
-    this.showCollaboratorForm = false;
+    this.serviceForm.cancelCreatingCollaboratorForm();
+    this.serviceForm.cancelEditingCollaboratorForm();
   }
 }

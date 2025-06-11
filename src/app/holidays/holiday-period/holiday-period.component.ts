@@ -1,34 +1,40 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, Input, OnChanges } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { HolidayPeriod } from '../holiday-period';
 import { CollaboratorStateService } from '../../collaborators/collaborator-state.service';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-holiday-period',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './holiday-period.component.html',
   styleUrl: './holiday-period.component.css'
 })
-export class HolidayPeriodComponent implements OnChanges {
+export class HolidayPeriodComponent implements OnInit, OnDestroy {
 
-  holidayPeriods = computed(() => this.collaboratorStateService.collaboratorHolidays());
+  holidayPeriods: HolidayPeriod[] | null = null;
+  collaboratorId: string = '';
 
-  @Input() collaboratorId!: string;
   showButtons = false;
 
-  form = new FormGroup({
-    holidays: new FormArray<FormGroup<{ initDate: FormControl<string>, finalDate: FormControl<string> }>>([])
-  });
+  private route = inject(ActivatedRoute);
+  private subscription: Subscription | null = null;
 
   constructor(private collaboratorStateService: CollaboratorStateService) {
   }
 
-  ngOnChanges() {
-    if (this.collaboratorId) {
-      this.collaboratorStateService.loadCollaboratorHolidays(this.collaboratorId);
-      console.log('holiday peeriods on changes', this.collaboratorId);
-    }
+  ngOnInit(): void {
+    this.subscription = this.route.data.subscribe(data => {
+      this.holidayPeriods = data['holidays'];
+    });
+
+    this.collaboratorId = this.route.snapshot.paramMap.get('id')!;
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
   handleHolidayPeriodSelected(holidayPeriod: HolidayPeriod) {
@@ -36,6 +42,10 @@ export class HolidayPeriodComponent implements OnChanges {
     this.holidaysForm.clear();
     this.showButtons = false;
   }
+
+  form = new FormGroup({
+    holidays: new FormArray<FormGroup<{ initDate: FormControl<string>, finalDate: FormControl<string> }>>([])
+  });
 
   get holidaysForm(): FormArray<FormGroup<{ initDate: FormControl<string>, finalDate: FormControl<string> }>> {
     return this.form.get('holidays') as FormArray;

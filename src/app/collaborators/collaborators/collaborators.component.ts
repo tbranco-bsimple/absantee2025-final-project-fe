@@ -1,43 +1,59 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed } from '@angular/core';
+import { Component, effect, inject, OnDestroy, OnInit, Signal, signal } from '@angular/core';
 import { Collaborator } from '../collaborator';
-import { CollaboratorStateService } from '../collaborator-state.service';
-import { AssociationProjCollabComponent } from '../../associations/association-proj-collab/association-proj-collab.component';
-import { HolidayPeriodComponent } from '../../holidays/holiday-period/holiday-period.component';
-import { HolidayPeriodDetailsComponent } from "../../holidays/holiday-period-details/holiday-period-details.component";
-import { AssociationProjCollabDetailsComponent } from '../../associations/association-proj-collab-details/association-proj-collab-details.component';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { SearchBarComponent } from '../../search-bar/search-bar.component';
+import { Subscription } from 'rxjs';
+import { CollaboratorFormComponent } from '../collaborator-form/collaborator-form.component';
+import { CollaboratorFormService } from '../collaborator-form/collaborator-form.service';
+import { CollaboratorApiService } from '../collaborator-api.service';
 
 @Component({
   selector: 'app-collaborators',
-  imports: [CommonModule, RouterModule, AssociationProjCollabComponent, AssociationProjCollabDetailsComponent, HolidayPeriodComponent, HolidayPeriodDetailsComponent],
+  imports: [CommonModule, RouterModule, SearchBarComponent],
   templateUrl: './collaborators.component.html',
   styleUrl: './collaborators.component.css'
 })
-export class CollaboratorsComponent {
+export class CollaboratorsComponent implements OnDestroy {
 
-  collaborators = computed(() => this.collaboratorStateService.collaborators());
-  selectedAssociationsCollaboratorId: string | null = null;
-  selectedHolidaysCollaboratorId: string | null = null;
+  collaborators = signal<Collaborator[]>([]);
+  filteredCollaborators = signal<Collaborator[]>([]);
+  setFilteredCollaborators = this.filteredCollaborators.set;
 
-  constructor(private collaboratorStateService: CollaboratorStateService) {
-    this.collaboratorStateService.loadCollaborators();
+  apiService = inject(CollaboratorApiService)
+  formService = inject(CollaboratorFormService)
+
+  private subscription: Subscription | null = null;
+
+  constructor() {
+    this.subscription = this.apiService.getCollaborators().subscribe(collabs => {
+      this.collaborators.set(collabs);
+      this.filteredCollaborators.set(collabs);
+    });
+
+    effect(() => {
+
+      const collaboratorCreated = this.formService.collaboratorCreated();
+      const collaboratorEdited = this.formService.collaboratorEdited();
+
+      if (collaboratorCreated) {
+        this.collaborators.update(collaborators => [...collaborators, collaboratorCreated]);
+      }
+      if (collaboratorEdited) {
+        this.collaborators.update(collaborators =>
+          collaborators.map(c => c.collabId === collaboratorEdited.collabId ? collaboratorEdited : c)
+        );
+      }
+    }
+    )
   }
 
-  handleCollaboratorSelected(collaborator: Collaborator): void {
-    this.selectedAssociationsCollaboratorId = null;
-    this.selectedHolidaysCollaboratorId = null;
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 
-  openAssociations(collaboratorId: string) {
-    this.selectedAssociationsCollaboratorId = collaboratorId;
-    this.selectedHolidaysCollaboratorId = null;
-
-  }
-
-  openHolidays(collaboratorId: string) {
-    this.selectedHolidaysCollaboratorId = collaboratorId;
-    this.selectedAssociationsCollaboratorId = null;
+  addCollaborator() {
+    this.formService.startCreatingCollaboratorForm();
   }
 
 }

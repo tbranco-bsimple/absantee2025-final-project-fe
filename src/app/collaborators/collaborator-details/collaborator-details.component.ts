@@ -4,6 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { Collaborator } from '../collaborator';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { CollaboratorStateService } from '../collaborator-state.service';
+import { CollaboratorApiService } from '../collaborator-api.service';
+import { CollaboratorFormComponent } from '../collaborator-form/collaborator-form.component';
+import { CollaboratorFormService } from '../collaborator-form/collaborator-form.service';
 
 @Component({
   selector: 'app-collaborator-details',
@@ -13,9 +17,10 @@ import { Subscription } from 'rxjs';
   styleUrl: './collaborator-details.component.css'
 })
 export class CollaboratorDetailsComponent implements OnInit, OnDestroy {
+
   collaborator: Collaborator | null = null;
-  localCollaborator: Collaborator | null = null;
-  isEditing = false;
+
+  formService = inject(CollaboratorFormService);
 
   private route = inject(ActivatedRoute);
   private subscription: Subscription | null = null;
@@ -25,8 +30,6 @@ export class CollaboratorDetailsComponent implements OnInit, OnDestroy {
       const resolved = data['collaborator'];
       if (resolved) {
         this.collaborator = resolved;
-        this.isEditing = false;
-        this.localCollaborator = structuredClone(resolved);
       }
     });
   }
@@ -35,21 +38,7 @@ export class CollaboratorDetailsComponent implements OnInit, OnDestroy {
     this.subscription?.unsubscribe();
   }
 
-  edit() {
-    this.isEditing = true;
-    this.localCollaborator = this.collaborator ? structuredClone(this.collaborator) : null;
+  editCollaborator(collaborator: Collaborator) {
+    this.formService.startEditingCollaboratorForm(collaborator);
   }
-
-  onEdit() {
-    if (this.localCollaborator) {
-      this.collaborator = structuredClone(this.localCollaborator);
-      this.isEditing = false;
-    }
-  }
-
-  onCancel() {
-    this.isEditing = false;
-    this.localCollaborator = this.collaborator ? structuredClone(this.collaborator) : null;
-  }
-
 }

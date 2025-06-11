@@ -50,3 +50,20 @@
     background-color: #cce5ff;
     border-left: 4px solid #007bff;
 }
+
+.add-holiday-period-button {
+    display: block;
+    margin: 2rem auto;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.add-holiday-period-button:hover {
+    background-color: #0056b3;
+}

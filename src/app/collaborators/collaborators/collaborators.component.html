@@ -1,5 +1,9 @@
 <h1 class="title">Collaborators</h1>
 
+<app-search-bar class="search-bar-container" [itemsSignal]="collaborators" [filterKey]="'names'"
+    [setFiltered]="setFilteredCollaborators">
+</app-search-bar>
+
 <table class="collaborators-table">
     <thead>
         <tr>
@@ -12,33 +16,21 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let collaborator of collaborators()" [routerLink]="['details', collaborator.collabId]"
-            (click)="handleCollaboratorSelected(collaborator)">
+        <tr *ngFor="let collaborator of filteredCollaborators()" [routerLink]="[collaborator.collabId]">
             <td>{{ collaborator.names }} {{ collaborator.surnames }}</td>
             <td>{{ collaborator.email }}</td>
             <td>{{ collaborator.collaboratorPeriod._initDate | date: 'yyyy-MM-dd' }}</td>
             <td>{{ collaborator.collaboratorPeriod._finalDate | date: 'yyyy-MM-dd' }}</td>
-            <td><button (click)="openAssociations(collaborator.collabId); $event.stopPropagation()">Assocations</button>
+            <td><button [routerLink]="[collaborator.collabId, 'associations']"
+                    (click)="$event.stopPropagation()">Assocations</button>
             </td>
-            <td><button (click)="openHolidays(collaborator.collabId); $event.stopPropagation()">Holidays</button>
+            <td><button [routerLink]="[collaborator.collabId, 'holidays']"
+                    (click)="$event.stopPropagation()">Holidays</button>
             </td>
         </tr>
     </tbody>
 </table>
 
-
-<button class="add-collaborator-button" [routerLink]="['add']">Add Collaborator</button>
+<button class="add-collaborator-button" (click)="addCollaborator()" [routerLink]="['add']">Add Collaborator</button>
 
 <router-outlet></router-outlet>
-
-
-@if (selectedHolidaysCollaboratorId) {
-<app-holiday-period [collaboratorId]="selectedHolidaysCollaboratorId" />
-<app-holiday-period-details [collaboratorId]="selectedHolidaysCollaboratorId"></app-holiday-period-details>
-}
-
-@if (selectedAssociationsCollaboratorId) {
-<app-association-proj-collab [collaboratorId]="selectedAssociationsCollaboratorId" />
-<app-association-proj-collab-details
-    [collaboratorId]="selectedAssociationsCollaboratorId"></app-association-proj-collab-details>
-}

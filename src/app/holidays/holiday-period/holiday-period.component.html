@@ -9,7 +9,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let holidayPeriod of holidayPeriods()" (click)="handleHolidayPeriodSelected(holidayPeriod)">
+        <tr *ngFor="let holidayPeriod of holidayPeriods" [routerLink]="[holidayPeriod.id]">
             <td>{{ holidayPeriod.id }}</td>
             <td>{{ holidayPeriod.periodDate.initDate | date: 'yyyy-MM-dd' }}</td>
             <td>{{ holidayPeriod.periodDate.finalDate | date: 'yyyy-MM-dd' }}</td>
@@ -17,7 +17,7 @@
     </tbody>
 </table>
 
-<button (click)="createEmptyHoliday()">Add Holiday Period</button>
+<button class="add-holiday-period-button" (click)="createEmptyHoliday()">Add Holiday Period</button>
 <form [formGroup]="form" class="holiday-form">
     <div formArrayName="holidays">
         <div *ngFor="let group of holidaysForm.controls; let i = index" [formGroupName]="i" class="form-row">

@@ -1,16 +1,11 @@
 import { Injectable, signal } from '@angular/core';
 import { CollaboratorApiService } from './collaborator-api.service';
-import { Collaborator } from './collaborator';
 import { HolidayPeriod } from '../holidays/holiday-period';
-import { CreateCollaborator } from './create-collaborator';
 
 @Injectable({
     providedIn: 'root',
 })
 export class CollaboratorStateService {
-
-    private _collaborators = signal<Collaborator[]>([]);
-    readonly collaborators = this._collaborators.asReadonly();
 
     private _collaboratorHolidays = signal<HolidayPeriod[]>([]);
     readonly collaboratorHolidays = this._collaboratorHolidays.asReadonly();
@@ -24,24 +19,6 @@ export class CollaboratorStateService {
         this._collaboratorHolidayDetails.set(holidayPeriod);
     }
 
-    loadCollaborators(): void {
-        this.collaboratorApiService.getCollaborators().subscribe({
-            next: (collaborators) => this._collaborators.set(collaborators),
-            error: (err) => {
-                console.error('Error loading collaborators:', err);
-            }
-        });
-    }
-
-    loadCollaboratorById(id: string): Collaborator {
-        const collab = this._collaborators().find(collaborator => collaborator.collabId === id)
-        if (collab == undefined) {
-            console.error('Collaborator not found in state:', id);
-            throw new Error(`Collaborator with ID ${id} not found in state.`);
-        }
-        return collab;
-    }
-
     loadCollaboratorHolidays(id: string): void {
         this.collaboratorApiService.getCollaboratorHolidays(id).subscribe({
             next: (holidays) => this._collaboratorHolidays.set(holidays),
@@ -51,13 +28,13 @@ export class CollaboratorStateService {
         });
     }
 
-    addCollaborator(newCollaborator: CreateCollaborator): void {
-        this.collaboratorApiService.addCollaborator(newCollaborator).subscribe({
-            next: (newCollab: Collaborator) => {
-                this._collaborators.update(list => [...list, newCollab]);
-            },
-            error: (err) => console.error('Failed to add holiday period:', err)
-        });
+    loadCollaboratorHolidayById(id: string): HolidayPeriod {
+        const holiday = this._collaboratorHolidays().find(holiday => holiday.id === id);
+        if (holiday == undefined) {
+            console.error('Holiday period not found in state:', id);
+            throw new Error(`Holiday period with ID ${id} not found in state.`);
+        }
+        return holiday;
     }
 
     addHolidayPeriod(collabId: string, initDate: string, finalDate: string): void {
@@ -66,19 +43,6 @@ export class CollaboratorStateService {
                 this._collaboratorHolidays.update(list => [...list, newHoliday]);
             },
             error: (err) => console.error('Failed to add holiday period:', err)
-        });
-    }
-
-    updateCollaborator(newCollaborator: Collaborator): void {
-        this.collaboratorApiService.updateCollaborator(newCollaborator).subscribe({
-            next: (updatedCollaborator) => {
-                this._collaborators.update(list =>
-                    list.map(collaborator =>
-                        collaborator.collabId === updatedCollaborator.collabId ? updatedCollaborator : collaborator
-                    )
-                );
-            },
-            error: (err) => console.error('Failed to update collaborator:', err)
         });
     }
 
