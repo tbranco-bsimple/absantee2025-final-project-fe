@@ -1,2 +1,6 @@
-<label>Search By:</label>
-<input type="text" placeholder="Search" (input)="onInputChange($event)" class="search-input" />
+<div class="search-bar">
+    @for (key of filterKeys; track $index) {
+    <label>{{ key }}</label>
+    <input type="text" [placeholder]="'Search'" (input)="onInputChange(key, $event)" />
+    }
+</div>

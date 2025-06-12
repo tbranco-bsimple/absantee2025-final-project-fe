@@ -17,8 +17,6 @@ import { CollaboratorApiService } from '../collaborator-api.service';
 export class CollaboratorsComponent implements OnDestroy {
 
   collaborators = signal<Collaborator[]>([]);
-  filteredCollaborators = signal<Collaborator[]>([]);
-  setFilteredCollaborators = this.filteredCollaborators.set;
 
   apiService = inject(CollaboratorApiService)
   formService = inject(CollaboratorFormService)
@@ -28,7 +26,6 @@ export class CollaboratorsComponent implements OnDestroy {
   constructor() {
     this.subscription = this.apiService.getCollaborators().subscribe(collabs => {
       this.collaborators.set(collabs);
-      this.filteredCollaborators.set(collabs);
     });
 
     effect(() => {

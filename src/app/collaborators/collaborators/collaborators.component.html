@@ -1,8 +1,7 @@
 <h1 class="title">Collaborators</h1>
 
-<app-search-bar class="search-bar-container" [itemsSignal]="collaborators" [filterKey]="'names'"
-    [setFiltered]="setFilteredCollaborators">
-</app-search-bar>
+<app-search-bar class="search-bar-container" #search [itemsSignal]="collaborators"
+    [filterKeys]="['names', 'surnames', 'email']"></app-search-bar>
 
 <table class="collaborators-table">
     <thead>
@@ -16,7 +15,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let collaborator of filteredCollaborators()" [routerLink]="[collaborator.collabId]">
+        <tr *ngFor="let collaborator of search.filteredItems()" [routerLink]="[collaborator.collabId]">
             <td>{{ collaborator.names }} {{ collaborator.surnames }}</td>
             <td>{{ collaborator.email }}</td>
             <td>{{ collaborator.collaboratorPeriod._initDate | date: 'yyyy-MM-dd' }}</td>

@@ -1,35 +1,40 @@
-import { Component, Input, effect, signal, Signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Input, signal, Signal, computed, WritableSignal, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-search-bar',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './search-bar.component.html',
   styleUrl: './search-bar.component.css'
 })
-export class SearchBarComponent<T> {
+export class SearchBarComponent<T> implements OnInit {
   @Input() itemsSignal!: Signal<T[]>;
-  @Input() filterKey!: keyof T;
-  @Input() setFiltered!: (value: T[]) => void;
+  @Input() filterKeys!: (keyof T)[];
 
-  searchTerm = signal('');
+  searchTerms: { [K in keyof T]?: WritableSignal<string> } = {};
 
-  constructor() {
-    effect(() => {
-      const term = this.searchTerm().toLowerCase();
-      const allItems = this.itemsSignal();
+  ngOnInit(): void {
+    for (const key of this.filterKeys) {
+      if (!this.searchTerms[key]) {
+        this.searchTerms[key] = signal('');
+      }
+    }
+  }
 
-      const filtered = allItems.filter(item => {
-        const value = String(item[this.filterKey] ?? '').toLowerCase();
+  filteredItems = computed(() => {
+    const items = this.itemsSignal();
+
+    return items.filter(item =>
+      this.filterKeys.every(key => {
+        const term = this.searchTerms[key]?.().toLowerCase() ?? '';
+        const value = String(item[key] ?? '').toLowerCase();
         return value.includes(term);
-      });
+      })
+    );
+  });
 
-      this.setFiltered(filtered);
-    });
+  onInputChange(key: keyof T, event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.searchTerms[key]?.set(input?.value ?? '');
   }
-
-  onInputChange(event: Event) {
-    const input = event.target as HTMLInputElement | null;
-    this.searchTerm.set(input?.value ?? '');
-  }
-
 }
