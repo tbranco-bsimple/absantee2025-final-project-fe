@@ -1,4 +1,4 @@
-<form [formGroup]="collaboratorForm" class="collaborator-form">
+<form [formGroup]="form" class="form">
     <div class="form-row">
         <label>
             Name:
@@ -28,9 +28,7 @@
         </div>
     </div>
 
-    <button type="button" [routerLink]="['/collaborators']" (click)="submitCollaborator()"
-        [disabled]="collaboratorForm.invalid">
+    <button type="button" [routerLink]="['../']" (click)="submitCollaborator()" [disabled]="form.invalid">
         {{ this.serviceForm.isEditingCollaboratorForm() ? "Save" : "Add" }}</button>
-    <button
-        [routerLink]=" this.serviceForm.isEditingCollaboratorForm() ? ['/collaborators', this.serviceForm.isEditingCollaboratorForm()?.collabId] : ['/collaborators']">Close</button>
+    <button [routerLink]="['../']">Close</button>
 </form>

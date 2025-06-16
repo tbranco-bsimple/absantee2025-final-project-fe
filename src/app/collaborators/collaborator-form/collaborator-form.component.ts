@@ -18,10 +18,10 @@ export class CollaboratorFormComponent {
 
   serviceApi = inject(CollaboratorApiService);
   serviceForm = inject(CollaboratorFormService);
-  collaboratorForm: FormGroup;
+  form: FormGroup;
 
   constructor() {
-    this.collaboratorForm = new FormGroup<CollaboratorForm>({
+    this.form = new FormGroup<CollaboratorForm>({
       names: new FormControl<string>(''),
       surnames: new FormControl<string>(''),
       email: new FormControl<string>(''),
@@ -43,10 +43,8 @@ export class CollaboratorFormComponent {
             _finalDate: this.formatDate(collaborator.collaboratorPeriod._finalDate),
           }
         };
-        this.collaboratorForm.patchValue(patch);
-        this.collaboratorForm.patchValue(collaborator);
-      } else {
-        this.collaboratorForm.reset();
+        this.form.patchValue(patch);
+        this.form.patchValue(collaborator);
       }
     });
   }
@@ -56,10 +54,10 @@ export class CollaboratorFormComponent {
   }
 
   submitCollaborator() {
-    console.log("antes de enviar: ", this.collaboratorForm.value);
-    if (this.collaboratorForm.valid) {
+    console.log("antes de enviar: ", this.form.value);
+    if (this.form.valid) {
       console.log("Form is valid, submitting...");
-      const rawValue = this.collaboratorForm.value;
+      const rawValue = this.form.value;
 
       const collaborator = {
         ...this.serviceForm.isEditingCollaboratorForm(),
@@ -92,12 +90,12 @@ export class CollaboratorFormComponent {
           }
         })
       }
-      this.collaboratorForm.reset();
+      this.form.reset();
     }
   }
 
   onCancel() {
-    this.collaboratorForm.reset();
+    this.form.reset();
     this.serviceForm.cancelCreatingCollaboratorForm();
     this.serviceForm.cancelEditingCollaboratorForm();
   }

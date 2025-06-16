@@ -4,9 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { Collaborator } from '../collaborator';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { CollaboratorStateService } from '../collaborator-state.service';
-import { CollaboratorApiService } from '../collaborator-api.service';
-import { CollaboratorFormComponent } from '../collaborator-form/collaborator-form.component';
 import { CollaboratorFormService } from '../collaborator-form/collaborator-form.service';
 
 @Component({

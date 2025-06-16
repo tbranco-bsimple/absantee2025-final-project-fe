@@ -8,12 +8,12 @@ import { CollaboratorFormComponent } from './collaborators/collaborator-form/col
 import { CollaboratorDetailsResolver } from './collaborators/collaborator-details.resolver';
 import { HolidayPeriodComponent } from './holidays/holiday-period/holiday-period.component';
 import { HolidayPeriodDetailsComponent } from './holidays/holiday-period-details/holiday-period-details.component';
-import { HolidayPeriodResolver } from './holidays/holiday-period.resolver';
+import { HolidayPeriodResolver } from './holidays/holiday-period/holiday-period.resolver';
 import { AssociationProjCollabComponent } from './associations/association-proj-collab/association-proj-collab.component';
 import { AssociationProjCollabDetailsComponent } from './associations/association-proj-collab-details/association-proj-collab-details.component';
 import { AssociationProjCollabResolver } from './associations/association-proj-collab.resolver';
-import { HolidayPeriodDetailsResolver } from './holidays/holiday-period-details.resolver';
-import { CollaboratorResolver } from './collaborators/collaborator.resolver';
+import { HolidayPeriodDetailsResolver } from './holidays/holiday-period-details/holiday-period-details.resolver';
+import { HolidayPeriodFormComponent } from './holidays/holiday-period-form/holiday-period-form.component';
 
 
 export const routes: Routes = [
@@ -26,9 +26,6 @@ export const routes: Routes = [
         path: 'collaborators',
         component: CollaboratorsComponent,
         title: 'Collaborators',
-        /* resolve: {
-            collaborators: CollaboratorResolver,
-        }, */
         children: [
             {
                 path: 'add',
@@ -58,6 +55,11 @@ export const routes: Routes = [
                 },
                 children: [
                     {
+                        path: 'add',
+                        component: HolidayPeriodFormComponent,
+                        title: 'Add Holiday',
+                    },
+                    {
                         path: ':holidayId',
                         component: HolidayPeriodDetailsComponent,
                         title: 'Holiday Details',
@@ -67,6 +69,8 @@ export const routes: Routes = [
                     },
                 ],
             },
+
+
             {
                 path: ':id/associations',
                 component: AssociationProjCollabComponent,
@@ -88,12 +92,12 @@ export const routes: Routes = [
         path: 'projects',
         component: ProjectsComponent,
         title: 'Projects',
-        children: [
+        /* children: [
             {
                 path: 'details/:id',
                 component: ProjectDetailsComponent,
                 title: 'Project Details',
             },
-        ],
+        ], */
     },
 ];

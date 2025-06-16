@@ -29,8 +29,4 @@ export class AssociationProjCollabComponent implements OnChanges {
     }
   }
 
-  handleAssociationSelected(association: AssociationProjCollab) {
-    this.associationProjCollabStateService.setSelectedAssociation(association);
-  }
-
 }

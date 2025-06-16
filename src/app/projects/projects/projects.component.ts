@@ -6,10 +6,11 @@ import { AssociationProjCollabComponent } from '../../associations/association-p
 import { AssociationProjCollabDetailsComponent } from '../../associations/association-proj-collab-details/association-proj-collab-details.component';
 import { ProjectFormComponent } from '../project-form/project-form.component';
 import { RouterModule } from '@angular/router';
+import { SearchBarComponent } from '../../search-bar/search-bar.component';
 
 @Component({
   selector: 'app-projects',
-  imports: [CommonModule, RouterModule, ProjectFormComponent, AssociationProjCollabComponent, AssociationProjCollabDetailsComponent],
+  imports: [CommonModule, RouterModule, ProjectFormComponent, AssociationProjCollabComponent, AssociationProjCollabDetailsComponent, SearchBarComponent],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.css'
 })

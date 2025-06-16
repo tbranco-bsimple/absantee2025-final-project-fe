@@ -6,6 +6,7 @@ import { CreateCollaborator } from './create-collaborator';
 import { Collaborator } from './collaborator';
 import { HolidayPeriod } from '../holidays/holiday-period';
 import { AssociationProjCollab } from '../associations/association-proj-collab';
+import { CreateHolidayPeriod } from '../holidays/create-holiday-period';
 
 
 @Injectable({
@@ -22,10 +23,9 @@ export class CollaboratorApiService {
         return this.httpClient.post<Collaborator>(this.url, collaborator);
     }
 
-    addCollaboratorHoliday(collaboratorId: string, initDate: string, finalDate: string): Observable<HolidayPeriod> {
-        const body = { "initDate": initDate, "finalDate": finalDate };
-        console.log('Adding holiday for collaborator:', collaboratorId, body);
-        return this.httpClient.post<HolidayPeriod>(this.url + collaboratorId + '/holidayplan/holidayperiod', body);
+    addCollaboratorHoliday(collaboratorId: string, holidayPeriod: CreateHolidayPeriod): Observable<HolidayPeriod> {
+        console.log('Adding holiday for collaborator:', collaboratorId, holidayPeriod);
+        return this.httpClient.post<HolidayPeriod>(this.url + collaboratorId + '/holidayplan/holidayperiod', holidayPeriod);
     }
 
     getCollaborators(): Observable<Collaborator[]> {
@@ -51,6 +51,11 @@ export class CollaboratorApiService {
     getCollaboratorAssociations(collaboratorId: string): Observable<AssociationProjCollab[]> {
         console.log('Fetching associations for collaborator:', collaboratorId);
         return this.httpClient.get<AssociationProjCollab[]>(this.url + collaboratorId + '/associations');
+    }
+
+    getCollaboratorAssociationById(collaboratorId: string, assocationId: string): Observable<AssociationProjCollab> {
+        console.log('Fetching associations by ID for collaborator:', collaboratorId);
+        return this.httpClient.get<AssociationProjCollab>(this.url + collaboratorId + '/associations' + assocationId);
     }
 
     updateCollaborator(collaborator: Collaborator): Observable<Collaborator> {

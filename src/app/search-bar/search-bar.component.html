@@ -1,6 +1,6 @@
 <div class="search-bar">
     @for (key of filterKeys; track $index) {
-    <label>{{ key }}</label>
-    <input type="text" [placeholder]="'Search'" (input)="onInputChange(key, $event)" />
+    <label>{{ formatKey(key) }}</label>
+    <input [type]="getInputType(key)" [placeholder]="'Search ' + formatKey(key)" (input)="onInputChange(key, $event)" />
     }
 </div>

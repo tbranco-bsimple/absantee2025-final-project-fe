@@ -2,9 +2,9 @@ import { Component, computed, effect, inject, Input, OnDestroy } from '@angular/
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HolidayPeriod } from '../holiday-period';
-import { CollaboratorStateService } from '../../collaborators/collaborator-state.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { CollaboratorApiService } from '../../collaborators/collaborator-api.service';
 
 @Component({
   selector: 'app-holiday-period-details',
@@ -23,12 +23,14 @@ export class HolidayPeriodDetailsComponent implements OnDestroy {
   private subscription: Subscription | null = null;
 
 
-  constructor(private collaboratorStateService: CollaboratorStateService) {
+  constructor(private serviceApi: CollaboratorApiService) {
   }
 
   ngOnInit(): void {
     this.subscription = this.route.data.subscribe(data => {
-      const resolved = data['holidayPeriod'];
+      console.log(data)
+      const resolved = data['holiday'];
+      console.log(data['holiday'])
       if (resolved) {
         this.holidayPeriod = resolved;
         this.isEditing = false;
@@ -50,7 +52,7 @@ export class HolidayPeriodDetailsComponent implements OnDestroy {
 
   onEdit(): void {
     if (this.localHolidayPeriod) {
-      this.collaboratorStateService.updateHolidayPeriod(this.collaboratorId, this.localHolidayPeriod);
+      this.serviceApi.updateCollaboratorHoliday(this.collaboratorId, this.localHolidayPeriod);
       this.isEditing = false;
     }
   }

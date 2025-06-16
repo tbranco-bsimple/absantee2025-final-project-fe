@@ -1,5 +1,8 @@
 <h1 class="title">Projects</h1>
 
+<app-search-bar class="search-bar-container" #search [itemsSignal]="projects"
+    [filterKeys]="['title', 'acronym']"></app-search-bar>
+
 <table class="project-table">
     <thead>
         <tr>
@@ -11,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let project of projects()" [routerLink]="['details', project.id]"
+        <tr *ngFor="let project of search.filteredItems()" [routerLink]="['details', project.id]"
             (click)="handleProjectSelected(project)">
             <td>{{ project.title }}</td>
             <td>{{ project.acronym }}</td>

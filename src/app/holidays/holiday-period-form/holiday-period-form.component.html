@@ -1,0 +1,16 @@
+<form [formGroup]="form" class="form">
+    <div class="form-row">
+        <label>
+            Start Date:
+            <input type="date" formControlName="initDate">
+        </label>
+        <label>
+            End Date:
+            <input type="date" formControlName="finalDate">
+        </label>
+    </div>
+
+    <button type="button" [routerLink]="['../']" (click)="submitHolidayPeriod()" [disabled]="form.invalid">
+        {{ this.serviceForm.isEditingHolidayPeriodForm() ? "Save" : "Add" }}</button>
+    <button [routerLink]="['../']">Close</button>
+</form>

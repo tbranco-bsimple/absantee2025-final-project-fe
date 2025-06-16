@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve } from '@angular/router';
-import { HolidayPeriod } from './holiday-period';
+import { HolidayPeriod } from '../holiday-period';
 import { Observable } from 'rxjs';
-import { CollaboratorApiService } from '../collaborators/collaborator-api.service';
+import { CollaboratorApiService } from '../../collaborators/collaborator-api.service';
 
 @Injectable({
     providedIn: 'root'

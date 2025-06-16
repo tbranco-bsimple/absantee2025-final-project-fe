@@ -7,15 +7,19 @@ import { Observable } from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
-export class AssociationProjCollabResolver implements Resolve<Observable<AssociationProjCollab[]>> {
+export class AssociationProjCollabResolver implements Resolve<Observable<AssociationProjCollab>> {
 
     constructor(private service: CollaboratorApiService) { }
 
-    resolve(route: ActivatedRouteSnapshot): Observable<AssociationProjCollab[]> {
-        const id = route.paramMap.get('id');
+    resolve(route: ActivatedRouteSnapshot): Observable<AssociationProjCollab> {
+        const id = route.parent?.paramMap.get('id');
+        const associationId = route.paramMap.get('associationId');
         if (!id) {
             throw new Error('Collaborator ID is missing in route');
         }
-        return this.service.getCollaboratorAssociations(id);
+        if (!associationId) {
+            throw new Error('Association ID is missing in route');
+        }
+        return this.service.getCollaboratorAssociationById(id, associationId);
     }
 }

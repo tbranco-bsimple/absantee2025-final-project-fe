@@ -11,8 +11,8 @@
         <p><strong>User Start Date:</strong> {{ collaborator.userPeriod._initDate | date: 'yyyy-MM-dd' }}</p>
         <p><strong>User End Date:</strong> {{ collaborator.userPeriod._finalDate | date: 'yyyy-MM-dd' }}</p>
         <button class="edit-collaborator-button" (click)="editCollaborator(collaborator)"
-            [routerLink]="['/collaborators', collaborator.collabId, 'edit']">Edit</button>
-        <button class="edit-collaborator-button" [routerLink]="['/collaborators']">Cancel</button>
+            [routerLink]="['edit']">Edit</button>
+        <button class="edit-collaborator-button" [routerLink]="['../']">Cancel</button>
         <router-outlet></router-outlet>
     </div>
 </div>
