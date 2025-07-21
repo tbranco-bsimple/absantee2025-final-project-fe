@@ -1,0 +1,15 @@
+@if (sprint) {
+<div class="sprint-details">
+    <div>
+        <p><strong>ID:</strong> {{ sprint.id }}</p>
+        <p><strong>Project ID:</strong> {{ sprint.projectId }}</p>
+        <p><strong>Start Date:</strong> {{ sprint.initDate }}</p>
+        <p><strong>End Date:</strong> {{ sprint.finalDate }}</p>
+        <p><strong>Total Effort Hours:</strong> {{ sprint.totalEffortHours }}</p>
+        <button class="user-story-button" [routerLink]="['../']">Close</button>
+        <router-outlet></router-outlet>
+    </div>
+</div>
+} @else {
+<p>Sprint no details</p>
+}

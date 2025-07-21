@@ -29,6 +29,15 @@ export class ProjectStateService {
         });
     }
 
+    loadProjectsFromJson(): void {
+        this.projectApiService.getAllProjectsFromJson().subscribe({
+            next: (projects) => this._projects.set(projects),
+            error: (err) => {
+                console.error('Erro ao carregar projetos:', err);
+            }
+        });
+    }
+
     addProject(newProject: CreateProject): void {
         this.projectApiService.addProject(newProject).subscribe({
             next: (newProj: Project) => {

@@ -11,16 +11,18 @@
             <th>Start Date</th>
             <th>End Date</th>
             <th>Associations</th>
+            <th>Sprints</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let project of search.filteredItems()" [routerLink]="['details', project.id]"
+        <tr *ngFor="let project of search.filteredItems()" [routerLink]="[project.id]"
             (click)="handleProjectSelected(project)">
             <td>{{ project.title }}</td>
             <td>{{ project.acronym }}</td>
             <td>{{ project.periodDate.initDate | date: 'yyyy-MM-dd' }}</td>
             <td>{{ project.periodDate.finalDate | date: 'yyyy-MM-dd' }}</td>
             <td><button (click)="openAssociations(project.id); $event.stopPropagation()">Assocations</button>
+            <td><button (click)="openSprints(project.id); $event.stopPropagation()">Sprints</button>
             </td>
         </tr>
     </tbody>
@@ -32,7 +34,12 @@
 <router-outlet></router-outlet>
 }
 
-@if (selectedProjectId){
+@if (selectedProjectId && showAssociations){
 <app-association-proj-collab [projectId]="selectedProjectId" />
 <app-association-proj-collab-details [projectId]="selectedProjectId"></app-association-proj-collab-details>
+}
+
+@if (selectedProjectId && showSprints){
+<app-sprints [projectId]="selectedProjectId" />
+<!-- <app-sprint-details [projectId]="selectedProjectId"></app-sprint-details> -->
 }

@@ -14,6 +14,21 @@ import { AssociationProjCollabDetailsComponent } from './associations/associatio
 import { AssociationProjCollabResolver } from './associations/association-proj-collab.resolver';
 import { HolidayPeriodDetailsResolver } from './holidays/holiday-period-details/holiday-period-details.resolver';
 import { HolidayPeriodFormComponent } from './holidays/holiday-period-form/holiday-period-form.component';
+import { UserStoriesComponent } from './user-stories/user-stories/user-stories.component';
+import { UserStoryDetailsComponent } from './user-stories/user-story-details/user-story-details.component';
+import { UserStoryFormComponent } from './user-stories/user-story-form/user-story-form.component';
+import { UserStoryDetailsResolver } from './user-stories/user-story-details.resolver';
+import { AssociationsSprintUserStoryComponent } from './associations-sprint-user-story/associations-sprint-user-story/associations-sprint-user-story.component';
+import { AssociationSprintUserStoryFormComponent } from './associations-sprint-user-story/association-sprint-user-story-form/association-sprint-user-story-form.component';
+import { AssociationSprintUserStoryDetailsComponent } from './associations-sprint-user-story/association-sprint-user-story-details/association-sprint-user-story-details.component';
+import { AssociationSprintUserStoryDetailsResolver } from './associations-sprint-user-story/association-sprint-user-story-details.resolver';
+import { UserStoryResolver } from './user-stories/user-story.resolver';
+import { AssociationSprintUserStoryResolver } from './associations-sprint-user-story/association-sprint-user-story.resolver';
+import { SprintsComponent } from './sprints/sprints/sprints.component';
+import { SprintResolver } from './sprints/sprint.resolver';
+import { SprintFormComponent } from './sprints/sprint-form/sprint-form.component';
+import { SprintDetailsComponent } from './sprints/sprint-details/sprint-details.component';
+import { SprintDetailsResolver } from './sprints/sprint-details.resolver';
 
 
 export const routes: Routes = [
@@ -92,12 +107,91 @@ export const routes: Routes = [
         path: 'projects',
         component: ProjectsComponent,
         title: 'Projects',
-        /* children: [
+        children: [
             {
-                path: 'details/:id',
+                path: ':id',
                 component: ProjectDetailsComponent,
                 title: 'Project Details',
             },
-        ], */
+        ],
     },
+    {
+        path: 'userstories',
+        component: UserStoriesComponent,
+        title: 'User Stories',
+        resolve: {
+            userStories: UserStoryResolver
+        },
+        children: [
+            {
+                path: 'add',
+                component: UserStoryFormComponent,
+                title: 'Add User Story',
+            },
+            {
+                path: ':id',
+                component: UserStoryDetailsComponent,
+                title: 'User Story Details',
+                resolve: {
+                    userStory: UserStoryDetailsResolver,
+                },
+
+            },
+        ],
+    },
+    {
+        path: 'sprints',
+        component: SprintsComponent,
+        title: 'Sprints',
+        resolve: {
+            sprints: SprintResolver
+        },
+        children: [
+            {
+                path: 'add',
+                component: SprintFormComponent,
+                title: 'Add Sprint',
+            },
+            {
+                path: ':id',
+                component: SprintDetailsComponent,
+                title: 'Sprint Details',
+                resolve: {
+                    sprint: SprintDetailsResolver,
+                },
+
+            },
+        ],
+    },
+    {
+        path: 'associations-sprint-userstory',
+        component: AssociationsSprintUserStoryComponent,
+        title: 'Associations Sprint UserStory',
+        resolve: {
+            associationsSprintUserStories: AssociationSprintUserStoryResolver
+        },
+        children: [
+            {
+                path: 'add',
+                component: AssociationSprintUserStoryFormComponent,
+                title: 'Add AssociationSprintUserStory',
+            },
+            {
+                path: ':id',
+                component: AssociationSprintUserStoryDetailsComponent,
+                title: 'AssociationSprintUserStory Details',
+                resolve: {
+                    associationSprintUserStory: AssociationSprintUserStoryDetailsResolver,
+                },
+
+            },
+            {
+                path: ':id/edit',
+                component: AssociationSprintUserStoryFormComponent,
+                title: 'Edit AssociationSprintUserStory',
+            },
+
+        ],
+    },
+
 ];

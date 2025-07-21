@@ -1,0 +1,7 @@
+import { PeriodDate } from "../../model/period-date";
+
+export interface CreateSprint {
+    projectId: string;
+    period: PeriodDate;
+    totalEffortHours: number;
+}

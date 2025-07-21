@@ -1,0 +1,33 @@
+<form [formGroup]="form" class="form">
+    <div class="form-row">
+        <label>
+            Description:
+            <input type="text" formControlName="description" />
+        </label>
+
+        <label>
+            Priority:
+            <select formControlName="priority">
+                <option [ngValue]="null">Select priority</option>
+                <option [ngValue]="1">Low</option>
+                <option [ngValue]="2">Medium</option>
+                <option [ngValue]="3">High</option>
+                <option [ngValue]="4">Critical</option>
+            </select>
+        </label>
+
+        <label>
+            Risk:
+            <select formControlName="risk">
+                <option [ngValue]="null">Select risk</option>
+                <option [ngValue]="">Low</option>
+                <option [ngValue]="2">Medium</option>
+                <option [ngValue]="3">High</option>
+                <option [ngValue]="4">Critical</option>
+            </select>
+        </label>
+    </div>
+
+    <button type="button" (click)="submitUserStory()" [disabled]="form.invalid">Add</button>
+    <button [routerLink]="['../']">Close</button>
+</form>

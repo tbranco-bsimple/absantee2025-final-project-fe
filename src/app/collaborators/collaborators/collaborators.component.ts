@@ -1,10 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, inject, OnDestroy, OnInit, Signal, signal } from '@angular/core';
+import { Component, effect, inject, OnDestroy, signal } from '@angular/core';
 import { Collaborator } from '../collaborator';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { SearchBarComponent } from '../../search-bar/search-bar.component';
 import { Subscription } from 'rxjs';
-import { CollaboratorFormComponent } from '../collaborator-form/collaborator-form.component';
 import { CollaboratorFormService } from '../collaborator-form/collaborator-form.service';
 import { CollaboratorApiService } from '../collaborator-api.service';
 

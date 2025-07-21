@@ -1,0 +1,47 @@
+[
+    {
+        "id": "4d556c8f-2f2e-4d76-b2f2-f5a2a8b9c9f1",
+        "title": "Project Alpha",
+        "acronym": "ALPHA",
+        "periodDate": {
+            "initDate": "2025-01-01",
+            "finalDate": "2025-12-31"
+        }
+    },
+    {
+        "id": "59b3f1b1-7209-4f45-bf4b-7d708a041b20",
+        "title": "Project Beta",
+        "acronym": "BETA",
+        "periodDate": {
+            "initDate": "2026-01-01",
+            "finalDate": "2026-12-31"
+        }
+    },
+    {
+        "id": "8f2a234b-98e3-402b-a058-98b889394c3c",
+        "title": "Project Gamma",
+        "acronym": "GAMMA",
+        "periodDate": {
+            "initDate": "2027-01-01",
+            "finalDate": "2027-12-31"
+        }
+    },
+    {
+        "id": "c7e3c416-b86f-4db4-92ea-6a9b37fc50a2",
+        "title": "Project Delta",
+        "acronym": "DELTA",
+        "periodDate": {
+            "initDate": "2028-01-01",
+            "finalDate": "2028-12-31"
+        }
+    },
+    {
+        "id": "e21088ee-8d1a-4718-9e41-f301a911a7c1",
+        "title": "Project Epsilon",
+        "acronym": "EPS",
+        "periodDate": {
+            "initDate": "2029-01-01",
+            "finalDate": "2029-12-31"
+        }
+    }
+]

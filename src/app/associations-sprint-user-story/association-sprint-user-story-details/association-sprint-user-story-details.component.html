@@ -1,0 +1,18 @@
+@if (associationSprintUserStory) {
+<div class="association-details">
+    <div>
+        <p><strong>ID:</strong> {{ associationSprintUserStory.id }}</p>
+        <p><strong>Sprint ID:</strong> {{ associationSprintUserStory.sprintId }}</p>
+        <p><strong>User Story ID:</strong> {{ associationSprintUserStory.userStoryId }}</p>
+        <p><strong>Collaborator ID:</strong> {{ associationSprintUserStory.collaboratorId }}</p>
+        <p><strong>Effort Hours:</strong> {{ associationSprintUserStory.effortHours }}</p>
+        <p><strong>Completion %:</strong> {{ associationSprintUserStory.completionPercentage }}</p>
+        <button class="edit-association-button" (click)="editAssociation(associationSprintUserStory)"
+            [routerLink]="['edit']">Edit</button>
+        <button class="association-button" [routerLink]="['../']">Close</button>
+        <router-outlet></router-outlet>
+    </div>
+</div>
+} @else {
+<p>Association Sprint UserStory no details</p>
+}

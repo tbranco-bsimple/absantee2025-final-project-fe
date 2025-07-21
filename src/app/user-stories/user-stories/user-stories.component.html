@@ -1,0 +1,25 @@
+<h1 class="title">User Stories</h1>
+
+<app-search-bar class="search-bar-container" #search [itemsSignal]="userStories"
+    [filterKeys]="['description', 'priority', 'risk']"></app-search-bar>
+
+<table class="user-stories-table">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>Priority</th>
+            <th>Risk</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let userStory of search.filteredItems()" [routerLink]="[userStory.id]">
+            <td>{{ userStory.description }}</td>
+            <td>{{ userStory.priorityLabel }}</td>
+            <td>{{ userStory.riskLabel }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<button class="add-user-story-button" (click)="addUserStory()" [routerLink]="['add']">Add User Story</button>
+
+<router-outlet></router-outlet>

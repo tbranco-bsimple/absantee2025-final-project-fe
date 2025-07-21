@@ -1,0 +1,33 @@
+<form [formGroup]="form" class="form">
+    <div class="form-row">
+
+        <label>
+            Project:
+            <select formControlName="projectId">
+                <option [ngValue]="null">Select project</option>
+                <option *ngFor="let project of projects" [ngValue]="project.id">
+                    {{ project.title }} ({{ project.acronym }})
+                </option>
+            </select>
+        </label>
+
+        <label>
+            Start Date:
+            <input type="date" formControlName="initDate" />
+        </label>
+
+        <label>
+            End Date:
+            <input type="date" formControlName="finalDate" />
+        </label>
+
+        <label>
+            Total Effort (hours):
+            <input type="number" formControlName="totalEffortHours" />
+        </label>
+
+    </div>
+
+    <button type="button" (click)="submitSprint()" [disabled]="form.invalid">Add</button>
+    <button [routerLink]="['../']">Close</button>
+</form>

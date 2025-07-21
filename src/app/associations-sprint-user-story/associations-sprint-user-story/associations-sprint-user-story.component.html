@@ -1,0 +1,30 @@
+<h1 class="title">AssociationsSprintUserStory</h1>
+
+<app-search-bar class="search-bar-container" #search [itemsSignal]="associationsSprintUserStory"
+    [filterKeys]="['sprintId', 'userStoryId', 'collaboratorId', 'effortHours', 'completionPercentage']"></app-search-bar>
+
+<table class="associations-table">
+    <thead>
+        <tr>
+            <th>Sprint Id</th>
+            <th>User Story Id</th>
+            <th>Collaborator Id</th>
+            <th>Effort Hours</th>
+            <th>Completion %</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let association of search.filteredItems()" [routerLink]="[association.id]">
+            <td>{{ association.sprintId }}</td>
+            <td>{{ association.userStoryId }}</td>
+            <td>{{ association.collaboratorId }}</td>
+            <td>{{ association.effortHours }}</td>
+            <td>{{ association.completionPercentage }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<button class="add-association-button" (click)="addAssociationSprintUserStory()" [routerLink]="['add']">Add
+    AssociationSprintUserStory</button>
+
+<router-outlet></router-outlet>

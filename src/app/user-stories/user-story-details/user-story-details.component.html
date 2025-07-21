@@ -1,0 +1,14 @@
+@if (userStory) {
+<div class="user-story-details">
+    <div>
+        <p><strong>ID:</strong> {{ userStory.id }}</p>
+        <p><strong>Description:</strong> {{ userStory.description }}</p>
+        <p><strong>Priority:</strong> {{ userStory.priorityLabel }}</p>
+        <p><strong>Risk:</strong> {{ userStory.riskLabel }}</p>
+        <button class="user-story-button" [routerLink]="['../']">Close</button>
+        <router-outlet></router-outlet>
+    </div>
+</div>
+} @else {
+<p>User Story no details</p>
+}

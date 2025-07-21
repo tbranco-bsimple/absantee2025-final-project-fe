@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Project } from './project';
 import { environment } from '../../environments/environment';
 import { AssociationProjCollab } from '../associations/association-proj-collab';
 import { CreateProject } from './create-project';
+
+import projects from './projects.json';
 
 @Injectable({
     providedIn: 'root',
@@ -34,4 +36,16 @@ export class ProjectApiService {
         console.log('Updating project:', project);
         return this.httpClient.put<Project>(this.url, project);
     }
+
+
+
+    getAllProjectsFromJson(): Observable<Project[]> {
+        return of(projects);
+    }
+
+    getProjectFromJsonById(id: string): Observable<Project | undefined> {
+        return of(projects.find(p => p.id === id));
+    }
+
+
 }

@@ -1,0 +1,36 @@
+<form [formGroup]="form" class="form">
+    <div class="form-row">
+        <label>
+            Sprint ID:
+            <input type="text" formControlName="sprintId" [readonly]="serviceForm.isEditingAssociationForm()">
+        </label>
+
+        <label>
+            User Story ID:
+            <input type="text" formControlName="userStoryId" [readonly]="serviceForm.isEditingAssociationForm()">
+        </label>
+
+        <label>
+            Collaborator ID:
+            <input type="text" formControlName="collaboratorId" [readonly]="serviceForm.isEditingAssociationForm()">
+        </label>
+
+        <label>
+            Effort Hours:
+            <input type="number" formControlName="effortHours" min="0">
+        </label>
+
+        <label>
+            Completion Percentage:
+            <input type="number" formControlName="completionPercentage" min="0" max="100">
+        </label>
+    </div>
+
+    <button type="button" [routerLink]="['../']" (click)="submit()" [disabled]="form.invalid">
+        {{ serviceForm.isEditingAssociationForm() ? 'Save' : 'Add' }}
+    </button>
+
+    <button type="button" [routerLink]="['../']" (click)="onCancel()">
+        Close
+    </button>
+</form>

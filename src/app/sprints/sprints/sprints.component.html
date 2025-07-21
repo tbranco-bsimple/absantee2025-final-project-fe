@@ -1,0 +1,27 @@
+<h1 class="title">Sprints</h1>
+
+<app-search-bar class="search-bar-container" #search [itemsSignal]="sprints"
+    [filterKeys]="['projectId', 'initDate', 'finalDate', 'totalEffortHours']"></app-search-bar>
+
+<table class="sprints-table">
+    <thead>
+        <tr>
+            <th>Project ID</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Total Effort Hours</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let sprint of search.filteredItems()" [routerLink]="[sprint.id]">
+            <td>{{ sprint.projectId }}</td>
+            <td>{{ sprint.initDate }}</td>
+            <td>{{ sprint.finalDate }}</td>
+            <td>{{ sprint.totalEffortHours }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<button class="add-sprint-button" (click)="addSprint()" [routerLink]="['add']">Add Sprint</button>
+
+<router-outlet></router-outlet>
